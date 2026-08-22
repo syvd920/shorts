@@ -82,7 +82,7 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
 </style>
 
 <style>
-/* V3.7: keep the original editor + right-side preview layout */
+/* V3.8: keep the original editor + right-side preview layout */
 .wrap{align-items:start}
 .templateHero{grid-column:auto}
 .templateHero.configLocked{
@@ -122,7 +122,7 @@ body.templateEditing .previewCard{display:block !important}
 
 
 <style>
-/* V3.7 layout correction: preview stays in the right column */
+/* V3.8 layout correction: preview stays in the right column */
 .wrap{
   max-width:1500px !important;
   grid-template-columns:minmax(520px,1fr) minmax(360px,430px) !important;
@@ -145,7 +145,7 @@ body.templateEditing .previewCard{display:block !important}
 
 
 <style>
-/* V3.7 desktop layout: wide editor + independent right preview */
+/* V3.8 desktop layout: wide editor + independent right preview */
 body{min-width:1280px}
 .wrap{
   max-width:1680px !important;
@@ -181,6 +181,41 @@ body{min-width:1280px}
 @media(max-width:1279px){
   body{min-width:1280px}
 }
+</style>
+
+
+<style>
+/* V3.8: preview must not influence editor position */
+body{min-width:1280px}
+.wrap{
+  max-width:none !important;
+  width:auto !important;
+  margin:24px 0 0 0 !important;
+  padding:0 438px 40px 24px !important;
+  display:block !important;
+  position:relative !important;
+}
+.wrap > .card:first-child{
+  width:100% !important;
+  max-width:1180px !important;
+  margin:0 !important;
+  min-width:0 !important;
+}
+.wrap > .card:last-child{
+  position:fixed !important;
+  right:24px !important;
+  top:92px !important;
+  width:390px !important;
+  min-width:390px !important;
+  max-width:390px !important;
+  margin:0 !important;
+  grid-column:auto !important;
+  grid-row:auto !important;
+}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.full{grid-column:1 / -1 !important}
+.templateGrid{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+.phoneWrap{max-width:330px;margin-left:auto;margin-right:auto}
 </style>
 
 </head>
@@ -455,7 +490,7 @@ function stopRecording(){if(stopping===false)stopping=true;cancelAnimationFrame(
 $('renderBtn').onclick=renderVideo;$('stopBtn').onclick=stopRecording;
 
 
-// ===== V3.7 template / subtitle / audio / sync layer =====
+// ===== V3.8 template / subtitle / audio / sync layer =====
 let activeTemplate='clean';
 let projectStarted=false;
 let accentColor='#FFD84D';
