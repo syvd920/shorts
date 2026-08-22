@@ -82,7 +82,7 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
 </style>
 
 <style>
-/* V3.6: keep the original editor + right-side preview layout */
+/* V3.7: keep the original editor + right-side preview layout */
 .wrap{align-items:start}
 .templateHero{grid-column:auto}
 .templateHero.configLocked{
@@ -122,7 +122,7 @@ body.templateEditing .previewCard{display:block !important}
 
 
 <style>
-/* V3.6 layout correction: preview stays in the right column */
+/* V3.7 layout correction: preview stays in the right column */
 .wrap{
   max-width:1500px !important;
   grid-template-columns:minmax(520px,1fr) minmax(360px,430px) !important;
@@ -140,6 +140,46 @@ body.templateEditing .previewCard{display:block !important}
   .wrap{grid-template-columns:1fr !important;padding:0 12px 30px !important}
   .wrap > .card:first-child,.wrap > .card:last-child{grid-column:1 !important}
   .wrap > .card:last-child{grid-row:auto !important;position:static !important}
+}
+</style>
+
+
+<style>
+/* V3.7 desktop layout: wide editor + independent right preview */
+body{min-width:1280px}
+.wrap{
+  max-width:1680px !important;
+  margin:24px auto !important;
+  padding:0 24px 40px !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) 390px !important;
+  gap:24px !important;
+  align-items:start !important;
+}
+.wrap > .card:first-child{
+  grid-column:1 !important;
+  width:auto !important;
+  min-width:0 !important;
+}
+.wrap > .card:last-child{
+  grid-column:2 !important;
+  grid-row:1 !important;
+  width:390px !important;
+  min-width:390px !important;
+  max-width:390px !important;
+  position:sticky !important;
+  top:92px !important;
+}
+.grid{
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+}
+.full{grid-column:1 / -1 !important}
+.templateGrid{
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+}
+.phoneWrap{max-width:330px;margin-left:auto;margin-right:auto}
+@media(max-width:1279px){
+  body{min-width:1280px}
 }
 </style>
 
@@ -415,7 +455,7 @@ function stopRecording(){if(stopping===false)stopping=true;cancelAnimationFrame(
 $('renderBtn').onclick=renderVideo;$('stopBtn').onclick=stopRecording;
 
 
-// ===== V3.6 template / subtitle / audio / sync layer =====
+// ===== V3.7 template / subtitle / audio / sync layer =====
 let activeTemplate='clean';
 let projectStarted=false;
 let accentColor='#FFD84D';
