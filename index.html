@@ -202,14 +202,30 @@ function drawCover(img, zoom=1, panX=.5, panY=.5){
 function wrapText(text,maxWidth,font){ctx.font=font;const words=text.split(' ');let lines=[],line='';for(const w of words){const test=(line+' '+w).trim();if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=w}else line=test}if(line)lines.push(line);if(lines.length===1&&text.length>18&&!text.includes(' ')){lines=[];for(let i=0;i<text.length;i+=12)lines.push(text.slice(i,i+12))}return lines.slice(0,2)}
 function drawFrame(t,total){
   ctx.fillStyle='#111';ctx.fillRect(0,0,canvas.width,canvas.height);
-  if(imageObjs.length){const per=total/imageObjs.length, idx=Math.min(imageObjs.length-1,Math.floor(t/per)), local=(t%per)/per;const img=imageObjs[idx];let zoom=1.03+local*.10,px=.5,py=.5;if(idx%3===1){px=.42+local*.16;zoom=1.08}else if(idx%3===2){py=.42+local*.14;zoom=1.06+local*.05}drawCover(img,zoom,px,py);ctx.fillStyle='rgba(0,0,0,.15)';ctx.fillRect(0,0,canvas.width,canvas.height)}
-  const subs=splitSubs($('script').value), rawPos=(t/Math.max(total,.1))*subs.length, si=Math.min(subs.length-1,Math.floor(rawPos)), sub=subs[si]||'';
-  const style=$('subtitleStyle').value; let boxY=1435, fs=68;
-  if(style==='strong') fs=80; else if(style==='premium') fs=64;
-  const subProgress=rawPos-Math.floor(rawPos); const pop=subProgress<.16 ? 1.14-(subProgress/.16)*.14 : 1;
-  ctx.save();ctx.translate(540,boxY);ctx.scale(pop,pop);ctx.translate(-540,-boxY);
-  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.font=`900 ${fs}px Arial, sans-serif`;const lines=wrapText(sub,850,ctx.font);lines.forEach((ln,i)=>{const y=boxY+(i-(lines.length-1)/2)*88;ctx.lineWidth=16;ctx.strokeStyle='rgba(0,0,0,.82)';ctx.strokeText(ln,540,y);ctx.fillStyle=style==='premium'?'#fff1bf':style==='strong'?'#ffe24a':'#fff';ctx.fillText(ln,540,y)});ctx.restore();
-  ctx.fillStyle='rgba(8,11,18,.78)';ctx.fillRect(0,1780,1080,140);ctx.font='700 40px Arial, sans-serif';ctx.fillStyle='white';ctx.fillText(`${$('brand').value}${$('phone').value?'  |  '+$('phone').value:''}`,540,1850);
+  if(imageObjs.length){
+    const per=total/imageObjs.length;
+    const idx=Math.min(imageObjs.length-1,Math.floor(t/per));
+    const local=(t%per)/per;
+    const img=imageObjs[idx];
+    let zoom=1.03+local*.10,px=.5,py=.5;
+    if(idx%3===1){px=.42+local*.16;zoom=1.08}
+    else if(idx%3===2){py=.42+local*.14;zoom=1.06+local*.05}
+    drawCover(img,zoom,px,py);
+    ctx.fillStyle='rgba(0,0,0,.12)';
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+  }else{
+    const g=ctx.createLinearGradient(0,0,1080,1920);
+    g.addColorStop(0,'#202736');g.addColorStop(1,'#11151d');
+    ctx.fillStyle=g;ctx.fillRect(0,0,1080,1920);
+    ctx.fillStyle='rgba(255,255,255,.7)';
+    ctx.font='700 42px Arial, sans-serif';ctx.textAlign='center';
+    ctx.fillText('매물사진을 추가하면 이곳에 표시됩니다',540,900);
+  }
+  ctx.fillStyle='rgba(8,11,18,.70)';
+  ctx.fillRect(0,1780,1080,140);
+  ctx.font='700 40px Arial, sans-serif';
+  ctx.textAlign='center';ctx.fillStyle='white';
+  ctx.fillText(`${$('brand').value}${$('phone').value?'  |  '+$('phone').value:''}`,540,1850);
 }
 function estimateDuration(){const n=$('script').value.replace(/\s/g,'').length,rate=parseFloat($('rate').value);return Math.max(12,Math.min(75,n/(5.2*rate)+2));}
 function sceneCount(){return Math.max(imageObjs.length,1)}
@@ -243,7 +259,7 @@ async function renderVideo(){
 function stopRecording(){if(stopping===false)stopping=true;cancelAnimationFrame(raf);speechSynthesis.cancel();if(recorder&&recorder.state==='recording')recorder.stop()}
 $('renderBtn').onclick=renderVideo;$('stopBtn').onclick=stopRecording;
 
-// ===== V3 presentation/audio/sync layer =====
+// ===== V3.1 presentation/audio/sync layer =====
 let activeTemplate='clean', accentColor='#FFD84D';
 const $v3=id=>document.getElementById(id);
 
@@ -314,7 +330,7 @@ function stopBgm(){if(bgmTimer){clearInterval(bgmTimer);bgmTimer=null}}
 // Speech boundary-driven caption sync.
 // Chrome exposes SpeechSynthesisUtterance.onboundary for spoken word/character boundaries.
 // We use actual speech progress instead of a separate estimated timer.
-let speechSync={active:false,charIndex:0,start:0,lastPop:-1,totalChars:1};
+let speechSync={active:false,charIndex:0,start:0,lastPop:-1,totalChars:1,boundarySeen:false,popChunkIndex:0,popStartedAt:0,lastChunk:-1};
 function sentenceChunks(text){
   const clean=(text||'').replace(/\s+/g,' ').trim();
   if(!clean) return [];
@@ -330,10 +346,11 @@ function chunkAt(text,idx){
 function speakSynced(text, rate=1, onEnd=null, audioDest=null){
   speechSynthesis.cancel(); stopBgm();
   const u=new SpeechSynthesisUtterance(text);u.lang='ko-KR';u.rate=rate;
-  speechSync={active:true,charIndex:0,start:performance.now(),lastPop:-1,totalChars:Math.max(1,text.length),popChunkIndex:0,popStartedAt:performance.now()};
+  speechSync={active:true,charIndex:0,start:performance.now(),lastPop:-1,totalChars:Math.max(1,text.length),boundarySeen:false,popChunkIndex:0,popStartedAt:performance.now(),lastChunk:-1};
   u.onstart=()=>{startBgm(audioDest);playPop(audioDest)};
   u.onboundary=e=>{
     if(typeof e.charIndex==='number'){
+      speechSync.boundarySeen=true;
       const prev=chunkAt(text,speechSync.charIndex).index;
       speechSync.charIndex=e.charIndex;
       const now=chunkAt(text,speechSync.charIndex).index;
@@ -346,30 +363,73 @@ function speakSynced(text, rate=1, onEnd=null, audioDest=null){
 }
 function currentSyncedCaption(){
   const text=$v3('script')?.value||'';
-  return chunkAt(text,speechSync.charIndex);
+  if(!text) return {text:'',start:0,end:0,index:0};
+  if(!speechSync.boundarySeen && speechSync.active){
+    const elapsed=(performance.now()-speechSync.start)/1000;
+    const total=Math.max(.1,estimateDuration());
+    speechSync.charIndex=Math.min(text.length-1,Math.floor((elapsed/total)*text.length));
+  }
+  return chunkAt(text,Math.max(0,speechSync.charIndex));
 }
 
 // Override the old preview with speech-driven progress.
 if(typeof startPreview==='function'){
   startPreview=function(){
     if(!imageObjs.length){alert('사진을 먼저 올려주세요.');return}
-    const text=$v3('script').value.trim();if(!text){alert('대본을 먼저 만들어주세요.');return}
+    const text=$v3('script').value.trim();
+    if(!text){alert('대본을 먼저 만들어주세요.');return}
     if(previewPlaying){stopPreview();return}
-    previewPlaying=true;$v3('previewPlay').textContent='⏸ 일시정지';
+    previewPlaying=true;
+    $v3('previewPlay').textContent='⏸ 일시정지';
     const rate=parseFloat($v3('rate').value);
-    speakSynced(text,rate,()=>{previewPlaying=false;$v3('previewPlay').textContent='▶ 미리보기';renderStill()});
+    const total=estimateDuration();
+
+    speakSynced(text,rate,()=>{
+      previewPlaying=false;
+      $v3('previewPlay').textContent='▶ 미리보기';
+      previewScene=0;
+      renderStill();
+    });
+
     const loop=()=>{
       if(!previewPlaying)return;
-      const frac=Math.min(1,speechSync.charIndex/Math.max(1,text.length));
-      const total=estimateDuration(), t=frac*total;
-      drawFrame(t,total);updateSceneInfo(t);
+
+      const elapsed=Math.max(0,(performance.now()-speechSync.start)/1000);
+      let frac;
+      if(speechSync.boundarySeen){
+        frac=Math.min(1,speechSync.charIndex/Math.max(1,text.length));
+      }else{
+        frac=Math.min(1,elapsed/Math.max(.1,total));
+        speechSync.charIndex=Math.min(text.length-1,Math.floor(frac*text.length));
+      }
+
+      const cap=chunkAt(text,Math.max(0,speechSync.charIndex));
+      if(cap.index!==speechSync.lastChunk){
+        speechSync.lastChunk=cap.index;
+        speechSync.popChunkIndex=cap.index;
+        speechSync.popStartedAt=performance.now();
+        if(cap.index>0){playPop();playWhoosh()}
+      }
+
+      const t=frac*total;
+      drawFrame(t,total);
+      updateSceneInfo(t);
+
       previewRaf=requestAnimationFrame(loop);
-    };loop();
+    };
+    loop();
   }
 }
 if(typeof stopPreview==='function'){
   const oldStop=stopPreview;
-  stopPreview=function(){previewPlaying=false;cancelAnimationFrame(previewRaf);$v3('previewPlay').textContent='▶ 미리보기';speechSynthesis.cancel();stopBgm();}
+  stopPreview=function(){
+    previewPlaying=false;
+    cancelAnimationFrame(previewRaf);
+    $v3('previewPlay').textContent='▶ 미리보기';
+    speechSynthesis.cancel();
+    stopBgm();
+    speechSync.active=false;
+  }
 }
 
 // Patch canvas captions after each frame: clean, no black box, highlighted keyword, POP scale.
@@ -378,8 +438,8 @@ const originalDrawFrame = typeof drawFrame==='function' ? drawFrame : null;
 if(originalDrawFrame){
   drawFrame=function(t,total){
     originalDrawFrame(t,total);
-    const c=$v3('canvas'),ctx=c.getContext('2d'),text=$v3('script')?.value||'';
-    const cap=speechSync.active?currentSyncedCaption():chunkAt(text,Math.floor((t/Math.max(.01,total))*text.length));
+    const c=$v3('preview'),ctx=c.getContext('2d'),text=$v3('script')?.value||'';
+    const cap=speechSync.active?currentSyncedCaption():chunkAt(text,Math.min(Math.max(0,text.length-1),Math.floor((t/Math.max(.01,total))*text.length)));
     if(!cap.text)return;
     // clear only lower caption band from original box/caption by redrawing image frame is not possible here,
     // so cover with a transparent-friendly subtle gradient sampled as overlay rather than a black rectangle.
