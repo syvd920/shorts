@@ -36,11 +36,59 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
 @media(max-width:700px){.templateGrid{grid-template-columns:repeat(2,1fr)}.audioGrid{grid-template-columns:1fr}}
 </style>
 
+
+<style>
+.templateHero{margin:-2px -2px 24px;padding:18px 18px 20px;border:1px solid #e8eaf0;border-radius:20px;background:linear-gradient(180deg,#fbfbfd 0%,#f7f8fb 100%)}
+.templateHeroHead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:14px}
+.templateHeroHead h2{margin:3px 0 4px}
+.templateHeroHead p{margin:0;color:#8b93a3;font-size:11px;line-height:1.55}
+.templateSelected{flex:0 0 auto;padding:7px 10px;border-radius:999px;background:#111827;color:#fff;font-size:10px;font-weight:800}
+.templateGrid{grid-template-columns:repeat(4,minmax(0,1fr))}
+.templateCard{appearance:none;font:inherit;min-width:0}
+.templateCard.active{border-color:#111827;box-shadow:0 0 0 2px #111827,0 10px 24px rgba(17,24,39,.08)}
+.cleanThumb{background:linear-gradient(145deg,#202735,#596477)}
+.impactThumb{background:linear-gradient(145deg,#14151a,#7055ff)}
+.luxuryThumb{background:linear-gradient(145deg,#161719,#8b7750)}
+.fastThumb{background:linear-gradient(145deg,#17212b,#129d82)}
+.templateThumb span{font-size:9px;letter-spacing:-.2px}
+@media(max-width:900px){.templateGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.templateHeroHead{flex-direction:column}.templateSelected{align-self:flex-start}}
+</style>
+
 </head>
 <body>
 <div class="top"><div class="brandTitle"><span class="brandMark">R</span><div><b>부동산 쇼츠 스튜디오</b><small>REAL ESTATE SHORTS MAKER</small></div></div><div class="topState"><span class="stateDot"></span>프로토타입</div></div>
 <div class="wrap">
   <div class="card">
+
+    <section class="templateHero">
+      <div class="templateHeroHead">
+        <div>
+          <div class="step">TEMPLATE</div>
+          <h2>영상 템플릿 선택</h2>
+          <p>템플릿을 선택하면 자막, 사진 모션, 강조 방식과 오디오 프리셋이 함께 바뀝니다.</p>
+        </div>
+        <span class="templateSelected" id="templateSelected">클린 매물형</span>
+      </div>
+      <div class="templateGrid" id="templateGrid">
+        <button type="button" class="templateCard active" data-template="clean">
+          <div class="templateThumb cleanThumb"><span>깔끔하게 매물 소개</span></div>
+          <b>클린 매물형</b><small>정돈된 자막 · 부드러운 줌</small>
+        </button>
+        <button type="button" class="templateCard" data-template="impact">
+          <div class="templateThumb impactThumb"><span>핵심 포인트를 강하게</span></div>
+          <b>임팩트 광고형</b><small>강조색 · 빠른 POP · 강한 전환</small>
+        </button>
+        <button type="button" class="templateCard" data-template="luxury">
+          <div class="templateThumb luxuryThumb"><span>PREMIUM PROPERTY</span></div>
+          <b>고급 매물형</b><small>절제된 타이포 · 느린 카메라</small>
+        </button>
+        <button type="button" class="templateCard" data-template="fast">
+          <div class="templateThumb fastThumb"><span>빠르게 핵심만</span></div>
+          <b>퀵 쇼츠형</b><small>빠른 장면 · 경쾌한 자막</small>
+        </button>
+      </div>
+    </section>
+
     <div class="step">STEP 1</div><h2>매물 직접 등록</h2>
     <div class="grid">
       <div><label>매물명</label><input id="name" placeholder="예: 잠실 ○○아파트 84㎡"></div>
@@ -67,15 +115,7 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
       <div><label>상호</label><input id="brand" value="○○공인중개사사무소"></div>
       <div><label>전화번호</label><input id="phone" placeholder="010-0000-0000"></div>
       
-<div class="full">
-  <label>영상 템플릿</label>
-  <div class="templateGrid" id="templateGrid">
-    <div class="templateCard active" data-template="clean"><div class="templateThumb"><span>깔끔한 매물 소개</span></div><b>클린 매물형</b><small>정돈된 자막 · 부드러운 모션</small></div>
-    <div class="templateCard" data-template="impact"><div class="templateThumb" style="background:linear-gradient(145deg,#151515,#613cff)"><span>핵심 포인트 POP</span></div><b>임팩트 광고형</b><small>강조색 · POP · 효과음</small></div>
-    <div class="templateCard" data-template="luxury"><div class="templateThumb" style="background:linear-gradient(145deg,#161b24,#806c3f)"><span>PREMIUM HOME</span></div><b>고급 매물형</b><small>절제된 타이포 · 느린 모션</small></div>
-    <div class="templateCard" data-template="fast"><div class="templateThumb" style="background:linear-gradient(145deg,#202939,#00a67d)"><span>빠르게 핵심만</span></div><b>퀵 쇼츠형</b><small>빠른 전환 · 경쾌한 POP</small></div>
-  </div>
-</div>
+
 <div><label>자막 스타일</label><select id="subtitleStyle"><option value="clean">깔끔형</option><option value="strong">강조형</option><option value="premium">고급형</option></select>
   <div class="colorRow" id="accentRow">
     <span class="small">강조색</span>
@@ -259,235 +299,369 @@ async function renderVideo(){
 function stopRecording(){if(stopping===false)stopping=true;cancelAnimationFrame(raf);speechSynthesis.cancel();if(recorder&&recorder.state==='recording')recorder.stop()}
 $('renderBtn').onclick=renderVideo;$('stopBtn').onclick=stopRecording;
 
-// ===== V3.1 presentation/audio/sync layer =====
-let activeTemplate='clean', accentColor='#FFD84D';
+
+// ===== V3.2 template / subtitle / audio / sync layer =====
+let activeTemplate='clean';
+let accentColor='#FFD84D';
+let audioCtx=null, bgmTimer=null;
+let speechSync={active:false,charIndex:0,start:0,boundarySeen:false,totalChars:1,lastChunk:-1};
+let captionMotion={index:-1,startedAt:0};
+
 const $v3=id=>document.getElementById(id);
 
-document.querySelectorAll('.templateCard').forEach(card=>{
-  card.addEventListener('click',()=>{
-    document.querySelectorAll('.templateCard').forEach(x=>x.classList.remove('active'));
-    card.classList.add('active'); activeTemplate=card.dataset.template;
-    const map={clean:'clean',impact:'strong',luxury:'premium',fast:'strong'};
-    if($v3('subtitleStyle')) $v3('subtitleStyle').value=map[activeTemplate]||'clean';
-    renderStill();
+const templateConfig={
+  clean:{
+    name:'클린 매물형', subtitle:'clean', bgm:'modern', sfx:'soft',
+    captionY:1450, fontSize:66, maxWidth:820, maxLines:2,
+    overlay:.10, motion:'soft'
+  },
+  impact:{
+    name:'임팩트 광고형', subtitle:'strong', bgm:'bright', sfx:'pop',
+    captionY:1320, fontSize:78, maxWidth:850, maxLines:3,
+    overlay:.16, motion:'impact'
+  },
+  luxury:{
+    name:'고급 매물형', subtitle:'premium', bgm:'luxury', sfx:'soft',
+    captionY:1440, fontSize:62, maxWidth:790, maxLines:2,
+    overlay:.08, motion:'luxury'
+  },
+  fast:{
+    name:'퀵 쇼츠형', subtitle:'strong', bgm:'bright', sfx:'pop',
+    captionY:1280, fontSize:72, maxWidth:850, maxLines:3,
+    overlay:.14, motion:'fast'
+  }
+};
+
+function applyTemplate(name){
+  activeTemplate=name;
+  const cfg=templateConfig[name]||templateConfig.clean;
+  document.querySelectorAll('.templateCard').forEach(card=>{
+    card.classList.toggle('active',card.dataset.template===name);
   });
+  if($v3('templateSelected')) $v3('templateSelected').textContent=cfg.name;
+  if($v3('subtitleStyle')) $v3('subtitleStyle').value=cfg.subtitle;
+  if($v3('bgmType')) $v3('bgmType').value=cfg.bgm;
+  if($v3('sfxType')) $v3('sfxType').value=cfg.sfx;
+  captionMotion.index=-1;
+  renderStill();
+}
+document.querySelectorAll('.templateCard').forEach(card=>{
+  card.addEventListener('click',()=>applyTemplate(card.dataset.template));
 });
+
 document.querySelectorAll('.colorDot').forEach(dot=>{
   dot.addEventListener('click',()=>{
     document.querySelectorAll('.colorDot').forEach(x=>x.classList.remove('active'));
-    dot.classList.add('active'); accentColor=dot.dataset.color; renderStill();
+    dot.classList.add('active');
+    accentColor=dot.dataset.color;
+    renderStill();
   });
 });
+
 ['bgmVol','sfxVol'].forEach(id=>{
   const el=$v3(id), out=$v3(id+'Txt');
   if(el&&out) el.addEventListener('input',()=>out.textContent=el.value);
 });
 
-// WebAudio-generated tones: no external audio files or API are required.
-let audioCtx=null, masterDest=null, bgmTimer=null;
 function ensureAudio(){
   if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
   if(audioCtx.state==='suspended') audioCtx.resume();
   return audioCtx;
 }
-function tone(freq=660,dur=.07,vol=.08,type='sine',when=0,dest=null){
-  const c=ensureAudio(), o=c.createOscillator(), g=c.createGain();
+function tone(freq=700,dur=.06,vol=.06,type='sine',when=0){
+  const c=ensureAudio(),o=c.createOscillator(),g=c.createGain();
   o.type=type;o.frequency.setValueAtTime(freq,c.currentTime+when);
-  g.gain.setValueAtTime(0.0001,c.currentTime+when);
-  g.gain.exponentialRampToValueAtTime(Math.max(.0002,vol),c.currentTime+when+.008);
+  g.gain.setValueAtTime(.0001,c.currentTime+when);
+  g.gain.exponentialRampToValueAtTime(Math.max(.0002,vol),c.currentTime+when+.007);
   g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+when+dur);
-  o.connect(g);g.connect(dest||c.destination);o.start(c.currentTime+when);o.stop(c.currentTime+when+dur+.02);
+  o.connect(g);g.connect(c.destination);
+  o.start(c.currentTime+when);o.stop(c.currentTime+when+dur+.02);
 }
-function playPop(dest=null){
-  if(!$v3('sfxType')||$v3('sfxType').value==='none') return;
-  const v=(+$v3('sfxVol').value/100)*.16;
+function playPop(){
+  if(!$v3('sfxType')||$v3('sfxType').value==='none')return;
+  const v=(+$v3('sfxVol').value/100)*.14;
   const soft=$v3('sfxType').value==='soft';
-  tone(soft?520:760,.06,v,soft?'sine':'triangle',0,dest);
-  tone(soft?660:1080,.055,v*.65,'sine',.035,dest);
+  tone(soft?520:780,.055,v,soft?'sine':'triangle');
+  tone(soft?650:1120,.05,v*.62,'sine',.028);
 }
-function playWhoosh(dest=null){
-  if(!$v3('sfxType')||$v3('sfxType').value==='none') return;
-  const c=ensureAudio(), o=c.createOscillator(), g=c.createGain(), v=(+$v3('sfxVol').value/100)*.05;
-  o.type='sawtooth';o.frequency.setValueAtTime(170,c.currentTime);o.frequency.exponentialRampToValueAtTime(650,c.currentTime+.14);
-  g.gain.setValueAtTime(.0001,c.currentTime);g.gain.linearRampToValueAtTime(v,c.currentTime+.04);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.16);
-  o.connect(g);g.connect(dest||c.destination);o.start();o.stop(c.currentTime+.17);
-}
-function startBgm(dest=null){
-  stopBgm();
-  if(!$v3('bgmType')||$v3('bgmType').value==='none') return;
-  const patterns={
-    modern:[[220,0],[330,.28],[440,.56],[330,.84]],
-    bright:[[330,0],[440,.22],[550,.44],[660,.66]],
-    luxury:[[196,0],[247,.45],[294,.9],[247,1.35]]
-  };
-  const pat=patterns[$v3('bgmType').value]||patterns.modern;
-  const beat=$v3('bgmType').value==='luxury'?1800:1100;
-  const fire=()=>{const v=(+$v3('bgmVol').value/100)*.035;pat.forEach(([f,w])=>tone(f,.18,v,'sine',w,dest));};
-  fire();bgmTimer=setInterval(fire,beat);
+function playWhoosh(){
+  if(!$v3('sfxType')||$v3('sfxType').value==='none')return;
+  const c=ensureAudio(),o=c.createOscillator(),g=c.createGain();
+  const v=(+$v3('sfxVol').value/100)*.035;
+  o.type='sawtooth';o.frequency.setValueAtTime(150,c.currentTime);
+  o.frequency.exponentialRampToValueAtTime(620,c.currentTime+.12);
+  g.gain.setValueAtTime(.0001,c.currentTime);
+  g.gain.linearRampToValueAtTime(v,c.currentTime+.025);
+  g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.14);
+  o.connect(g);g.connect(c.destination);o.start();o.stop(c.currentTime+.15);
 }
 function stopBgm(){if(bgmTimer){clearInterval(bgmTimer);bgmTimer=null}}
+function startBgm(){
+  stopBgm();
+  if(!$v3('bgmType')||$v3('bgmType').value==='none')return;
+  const patterns={
+    modern:[[220,0],[330,.30],[440,.60]],
+    bright:[[330,0],[440,.20],[550,.40],[660,.60]],
+    luxury:[[196,0],[247,.42],[294,.84]]
+  };
+  const key=$v3('bgmType').value,pat=patterns[key]||patterns.modern;
+  const beat=key==='luxury'?1700:1050;
+  const fire=()=>{
+    const v=(+$v3('bgmVol').value/100)*.028;
+    pat.forEach(([f,w])=>tone(f,.16,v,'sine',w));
+  };
+  fire();bgmTimer=setInterval(fire,beat);
+}
 
-// Speech boundary-driven caption sync.
-// Chrome exposes SpeechSynthesisUtterance.onboundary for spoken word/character boundaries.
-// We use actual speech progress instead of a separate estimated timer.
-let speechSync={active:false,charIndex:0,start:0,lastPop:-1,totalChars:1,boundarySeen:false,popChunkIndex:0,popStartedAt:0,lastChunk:-1};
 function sentenceChunks(text){
   const clean=(text||'').replace(/\s+/g,' ').trim();
-  if(!clean) return [];
-  const s=clean.match(/[^.!?。！？]+[.!?。！？]?/g)||[clean];
+  if(!clean)return [];
+  const parts=clean.match(/[^.!?。！？]+[.!?。！？]?/g)||[clean];
   let offset=0;
-  return s.map(x=>{const t=x.trim();const st=clean.indexOf(t,offset);offset=st+t.length;return {text:t,start:st,end:st+t.length};});
+  return parts.map((raw,index)=>{
+    const t=raw.trim(),st=clean.indexOf(t,offset);
+    offset=Math.max(offset,st+t.length);
+    return {text:t,start:Math.max(0,st),end:Math.max(0,st)+t.length,index};
+  });
 }
 function chunkAt(text,idx){
-  const chunks=sentenceChunks(text); if(!chunks.length)return {text:'',start:0,end:0,index:0};
-  let i=chunks.findIndex(c=>idx>=c.start&&idx<c.end);if(i<0)i=Math.min(chunks.length-1,Math.floor((idx/Math.max(1,text.length))*chunks.length));
-  return {...chunks[i],index:i};
+  const chunks=sentenceChunks(text);
+  if(!chunks.length)return {text:'',start:0,end:0,index:0};
+  let i=chunks.findIndex(c=>idx>=c.start&&idx<c.end);
+  if(i<0)i=Math.min(chunks.length-1,Math.max(0,Math.floor((idx/Math.max(1,text.length))*chunks.length)));
+  return chunks[i];
 }
-function speakSynced(text, rate=1, onEnd=null, audioDest=null){
-  speechSynthesis.cancel(); stopBgm();
-  const u=new SpeechSynthesisUtterance(text);u.lang='ko-KR';u.rate=rate;
-  speechSync={active:true,charIndex:0,start:performance.now(),lastPop:-1,totalChars:Math.max(1,text.length),boundarySeen:false,popChunkIndex:0,popStartedAt:performance.now(),lastChunk:-1};
-  u.onstart=()=>{startBgm(audioDest);playPop(audioDest)};
+function currentCaptionFromTime(t,total){
+  const text=$v3('script')?.value||'';
+  if(!text)return {text:'',index:0};
+  let idx;
+  if(speechSync.active && speechSync.boundarySeen){
+    idx=speechSync.charIndex;
+  }else if(speechSync.active){
+    const elapsed=(performance.now()-speechSync.start)/1000;
+    idx=Math.floor(Math.min(1,elapsed/Math.max(.1,total))*text.length);
+  }else{
+    idx=Math.floor(Math.min(1,t/Math.max(.1,total))*text.length);
+  }
+  return chunkAt(text,Math.max(0,Math.min(text.length-1,idx)));
+}
+
+function wrapTextMeasured(ctx,text,maxWidth,maxLines){
+  const tokens=text.includes(' ')?text.split(/\s+/):Array.from(text);
+  const lines=[];
+  let current='';
+  for(const token of tokens){
+    const joiner=text.includes(' ')?' ':'';
+    const test=current?current+joiner+token:token;
+    if(ctx.measureText(test).width<=maxWidth){
+      current=test;
+    }else{
+      if(current)lines.push(current);
+      current=token;
+      if(lines.length>=maxLines-1)break;
+    }
+  }
+  if(current&&lines.length<maxLines)lines.push(current);
+
+  // If remaining text got cut, fit an ellipsis only for preview safety.
+  const reconstructed=lines.join(text.includes(' ')?' ':'');
+  if(reconstructed.length<text.length && lines.length){
+    let last=lines[lines.length-1];
+    while(last.length>1 && ctx.measureText(last+'…').width>maxWidth)last=last.slice(0,-1);
+    lines[lines.length-1]=last+'…';
+  }
+  return lines;
+}
+function fitCaption(ctx,text,cfg){
+  let fs=cfg.fontSize;
+  let lines=[];
+  while(fs>=46){
+    ctx.font=`900 ${fs}px "Noto Sans KR", Arial, sans-serif`;
+    lines=wrapTextMeasured(ctx,text,cfg.maxWidth,cfg.maxLines);
+    if(lines.every(x=>ctx.measureText(x).width<=cfg.maxWidth))break;
+    fs-=4;
+  }
+  return {fontSize:fs,lines};
+}
+function popScaleFor(index){
+  if(captionMotion.index!==index){
+    captionMotion.index=index;
+    captionMotion.startedAt=performance.now();
+    if(previewPlaying){playPop();}
+  }
+  const age=(performance.now()-captionMotion.startedAt)/1000;
+  if(age>=.17)return 1;
+  if(age<.065){
+    const q=age/.065;
+    return .56+(1.22-.56)*(1-Math.pow(1-q,3));
+  }
+  const q=(age-.065)/.105;
+  return 1.22+(1-1.22)*(1-Math.pow(1-q,3));
+}
+
+function drawCaptionOverlay(t,total){
+  const c=$v3('preview'),cx=c.getContext('2d');
+  const cap=currentCaptionFromTime(t,total);
+  if(!cap.text)return;
+  const cfg=templateConfig[activeTemplate]||templateConfig.clean;
+  const style=$v3('subtitleStyle')?.value||cfg.subtitle;
+  const fitted=fitCaption(cx,cap.text,cfg);
+
+  // Bottom readability gradient, never a solid black subtitle box.
+  const y0=cfg.captionY-190,y1=cfg.captionY+210;
+  const grad=cx.createLinearGradient(0,y0,0,y1);
+  grad.addColorStop(0,'rgba(0,0,0,0)');
+  grad.addColorStop(1,`rgba(0,0,0,${activeTemplate==='luxury'?.20:.28})`);
+  cx.fillStyle=grad;cx.fillRect(0,y0,1080,y1-y0);
+
+  const scale=popScaleFor(cap.index);
+  cx.save();
+  cx.translate(540,cfg.captionY);
+  cx.scale(scale,scale);
+  cx.textAlign='center';cx.textBaseline='middle';cx.lineJoin='round';
+  cx.font=`900 ${fitted.fontSize}px "Noto Sans KR", Arial, sans-serif`;
+
+  const lineGap=fitted.fontSize+15;
+  const keyWords=cap.text.split(/\s+/).filter(Boolean);
+  const key=keyWords.length>1?keyWords[Math.floor(keyWords.length/2)]:keyWords[0];
+
+  fitted.lines.forEach((line,i)=>{
+    const yy=(i-(fitted.lines.length-1)/2)*lineGap;
+    cx.strokeStyle=activeTemplate==='luxury'?'rgba(5,7,10,.72)':'rgba(6,9,14,.90)';
+    cx.lineWidth=style==='premium'?8:11;
+    cx.strokeText(line,0,yy);
+    cx.fillStyle=activeTemplate==='luxury'?'#F8F4EA':'#FFFFFF';
+    cx.fillText(line,0,yy);
+
+    if(style==='strong' && key && line.includes(key)){
+      const before=line.slice(0,line.indexOf(key));
+      const fullW=cx.measureText(line).width;
+      const beforeW=cx.measureText(before).width;
+      const keyW=cx.measureText(key).width;
+      const x=-fullW/2+beforeW+keyW/2;
+      cx.strokeStyle='rgba(6,9,14,.90)';cx.lineWidth=11;cx.strokeText(key,x,yy);
+      cx.fillStyle=accentColor;cx.fillText(key,x,yy);
+    }
+  });
+  cx.restore();
+}
+
+// Replace photo motion with template-aware camera movement.
+const baseDrawFrame = drawFrame;
+drawFrame=function(t,total){
+  ctx.fillStyle='#111';ctx.fillRect(0,0,canvas.width,canvas.height);
+  const cfg=templateConfig[activeTemplate]||templateConfig.clean;
+  if(imageObjs.length){
+    const per=total/imageObjs.length;
+    const idx=Math.min(imageObjs.length-1,Math.floor(t/per));
+    const local=Math.min(1,(t%per)/per);
+    const img=imageObjs[idx];
+    let zoom=1.03,px=.5,py=.5;
+
+    if(cfg.motion==='soft'){
+      zoom=1.025+local*.065;
+      if(idx%2)px=.47+local*.06;
+    }else if(cfg.motion==='impact'){
+      zoom=1.05+local*.13;
+      px=idx%2?.44+local*.10:.55-local*.08;
+    }else if(cfg.motion==='luxury'){
+      zoom=1.015+local*.045;
+      py=.48+local*.035;
+    }else{
+      zoom=1.055+local*.14;
+      px=idx%3===1?.42+local*.15:.53-local*.08;
+      py=idx%3===2?.44+local*.10:.5;
+    }
+
+    drawCover(img,zoom,px,py);
+    ctx.fillStyle=`rgba(0,0,0,${cfg.overlay})`;ctx.fillRect(0,0,1080,1920);
+  }else{
+    const g=ctx.createLinearGradient(0,0,1080,1920);
+    g.addColorStop(0,'#202736');g.addColorStop(1,'#11151d');
+    ctx.fillStyle=g;ctx.fillRect(0,0,1080,1920);
+  }
+
+  // Brand footer
+  ctx.fillStyle=activeTemplate==='luxury'?'rgba(12,12,12,.48)':'rgba(8,11,18,.62)';
+  ctx.fillRect(0,1780,1080,140);
+  ctx.font='700 38px Arial, sans-serif';ctx.textAlign='center';ctx.fillStyle='#fff';
+  ctx.fillText(`${$('brand').value}${$('phone').value?'  |  '+$('phone').value:''}`,540,1850);
+
+  drawCaptionOverlay(t,total);
+};
+
+function speakSynced(text,rate=1,onEnd=null){
+  speechSynthesis.cancel();stopBgm();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='ko-KR';u.rate=rate;
+  speechSync={active:true,charIndex:0,start:performance.now(),boundarySeen:false,totalChars:Math.max(1,text.length),lastChunk:-1};
+  captionMotion={index:-1,startedAt:performance.now()};
+  u.onstart=()=>startBgm();
   u.onboundary=e=>{
     if(typeof e.charIndex==='number'){
       speechSync.boundarySeen=true;
-      const prev=chunkAt(text,speechSync.charIndex).index;
+      const before=chunkAt(text,speechSync.charIndex).index;
       speechSync.charIndex=e.charIndex;
-      const now=chunkAt(text,speechSync.charIndex).index;
-      if(now!==prev){playPop(audioDest);playWhoosh(audioDest)}
+      const after=chunkAt(text,speechSync.charIndex).index;
+      if(after!==before){playWhoosh();}
     }
   };
   u.onend=()=>{speechSync.active=false;stopBgm();if(onEnd)onEnd()};
   u.onerror=()=>{speechSync.active=false;stopBgm();if(onEnd)onEnd()};
-  speechSynthesis.speak(u); return u;
-}
-function currentSyncedCaption(){
-  const text=$v3('script')?.value||'';
-  if(!text) return {text:'',start:0,end:0,index:0};
-  if(!speechSync.boundarySeen && speechSync.active){
-    const elapsed=(performance.now()-speechSync.start)/1000;
-    const total=Math.max(.1,estimateDuration());
-    speechSync.charIndex=Math.min(text.length-1,Math.floor((elapsed/total)*text.length));
-  }
-  return chunkAt(text,Math.max(0,speechSync.charIndex));
+  speechSynthesis.speak(u);
 }
 
-// Override the old preview with speech-driven progress.
-if(typeof startPreview==='function'){
-  startPreview=function(){
-    if(!imageObjs.length){alert('사진을 먼저 올려주세요.');return}
-    const text=$v3('script').value.trim();
-    if(!text){alert('대본을 먼저 만들어주세요.');return}
-    if(previewPlaying){stopPreview();return}
-    previewPlaying=true;
-    $v3('previewPlay').textContent='⏸ 일시정지';
-    const rate=parseFloat($v3('rate').value);
-    const total=estimateDuration();
+startPreview=function(){
+  if(!imageObjs.length){alert('사진을 먼저 올려주세요.');return}
+  const text=$v3('script').value.trim();
+  if(!text){alert('대본을 먼저 만들어주세요.');return}
+  if(previewPlaying){stopPreview();return}
+  previewPlaying=true;
+  $v3('previewPlay').textContent='⏸ 일시정지';
+  const total=estimateDuration(),rate=parseFloat($v3('rate').value);
 
-    speakSynced(text,rate,()=>{
-      previewPlaying=false;
-      $v3('previewPlay').textContent='▶ 미리보기';
-      previewScene=0;
-      renderStill();
-    });
-
-    const loop=()=>{
-      if(!previewPlaying)return;
-
-      const elapsed=Math.max(0,(performance.now()-speechSync.start)/1000);
-      let frac;
-      if(speechSync.boundarySeen){
-        frac=Math.min(1,speechSync.charIndex/Math.max(1,text.length));
-      }else{
-        frac=Math.min(1,elapsed/Math.max(.1,total));
-        speechSync.charIndex=Math.min(text.length-1,Math.floor(frac*text.length));
-      }
-
-      const cap=chunkAt(text,Math.max(0,speechSync.charIndex));
-      if(cap.index!==speechSync.lastChunk){
-        speechSync.lastChunk=cap.index;
-        speechSync.popChunkIndex=cap.index;
-        speechSync.popStartedAt=performance.now();
-        if(cap.index>0){playPop();playWhoosh()}
-      }
-
-      const t=frac*total;
-      drawFrame(t,total);
-      updateSceneInfo(t);
-
-      previewRaf=requestAnimationFrame(loop);
-    };
-    loop();
-  }
-}
-if(typeof stopPreview==='function'){
-  const oldStop=stopPreview;
-  stopPreview=function(){
+  speakSynced(text,rate,()=>{
     previewPlaying=false;
-    cancelAnimationFrame(previewRaf);
     $v3('previewPlay').textContent='▶ 미리보기';
-    speechSynthesis.cancel();
-    stopBgm();
-    speechSync.active=false;
-  }
-}
+    previewScene=0;
+    captionMotion.index=-1;
+    renderStill();
+  });
 
-// Patch canvas captions after each frame: clean, no black box, highlighted keyword, POP scale.
-// The original drawFrame still handles photos/brand. This overlay refreshes the subtitle area.
-const originalDrawFrame = typeof drawFrame==='function' ? drawFrame : null;
-if(originalDrawFrame){
-  drawFrame=function(t,total){
-    originalDrawFrame(t,total);
-    const c=$v3('preview'),ctx=c.getContext('2d'),text=$v3('script')?.value||'';
-    const cap=speechSync.active?currentSyncedCaption():chunkAt(text,Math.min(Math.max(0,text.length-1),Math.floor((t/Math.max(.01,total))*text.length)));
-    if(!cap.text)return;
-    // clear only lower caption band from original box/caption by redrawing image frame is not possible here,
-    // so cover with a transparent-friendly subtle gradient sampled as overlay rather than a black rectangle.
-    const y=1360;
-    const grad=ctx.createLinearGradient(0,y-150,0,1640);grad.addColorStop(0,'rgba(0,0,0,0)');grad.addColorStop(1,'rgba(0,0,0,.18)');
-    ctx.fillStyle=grad;ctx.fillRect(0,y-150,1080,300);
-    const chunkNow = speechSync.active ? currentSyncedCaption() : {index:0};
-    if (typeof speechSync.popChunkIndex === 'undefined') {
-      speechSync.popChunkIndex = chunkNow.index;
-      speechSync.popStartedAt = performance.now();
+  const loop=()=>{
+    if(!previewPlaying)return;
+    const elapsed=(performance.now()-speechSync.start)/1000;
+    let frac;
+    if(speechSync.boundarySeen){
+      frac=Math.min(1,speechSync.charIndex/Math.max(1,text.length));
+    }else{
+      frac=Math.min(1,elapsed/Math.max(.1,total));
+      speechSync.charIndex=Math.min(text.length-1,Math.floor(frac*text.length));
     }
-    if (speechSync.popChunkIndex !== chunkNow.index) {
-      speechSync.popChunkIndex = chunkNow.index;
-      speechSync.popStartedAt = performance.now();
-    }
-    const popAge = Math.max(0, (performance.now() - (speechSync.popStartedAt || performance.now())) / 1000);
-    // Quick POP: 0.70 -> 1.18 -> 1.00 in about 0.18 sec.
-    let scale = 1;
-    if (speechSync.active && popAge < 0.18) {
-      if (popAge < 0.075) {
-        const q = popAge / 0.075;
-        scale = 0.70 + (1.18 - 0.70) * (1 - Math.pow(1 - q, 3));
-      } else {
-        const q = (popAge - 0.075) / 0.105;
-        scale = 1.18 + (1.00 - 1.18) * (1 - Math.pow(1 - q, 3));
-      }
-    }
-    ctx.save();ctx.translate(540,1460);ctx.scale(scale,scale);
-    ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';
-    const style=$v3('subtitleStyle')?.value||'clean';
-    const fs=style==='strong'?72:style==='premium'?62:66;
-    ctx.font=`900 ${fs}px "Noto Sans KR", Arial, sans-serif`;
-    const words=cap.text.split(/\s+/); const key=words.length>1?words[Math.floor(words.length/2)]:words[0];
-    const line=cap.text.length>22?[cap.text.slice(0,22),cap.text.slice(22)]:[cap.text];
-    line.forEach((ln,i)=>{
-      const yy=(i-(line.length-1)/2)*(fs+14);
-      ctx.strokeStyle='rgba(12,16,24,.88)';ctx.lineWidth=12;ctx.strokeText(ln,0,yy);
-      ctx.fillStyle='#fff';ctx.fillText(ln,0,yy);
-      if(style==='strong' && ln.includes(key)){
-        const before=ln.split(key)[0], fullW=ctx.measureText(ln).width, beforeW=ctx.measureText(before).width, keyW=ctx.measureText(key).width;
-        const x=-fullW/2+beforeW+keyW/2;
-        ctx.strokeStyle='rgba(12,16,24,.88)';ctx.lineWidth=12;ctx.strokeText(key,x,yy);
-        ctx.fillStyle=accentColor;ctx.fillText(key,x,yy);
-      }
-    });
-    ctx.restore();
-  }
-}
+    const t=frac*total;
+    drawFrame(t,total);
+    updateSceneInfo(t);
+    previewRaf=requestAnimationFrame(loop);
+  };
+  loop();
+};
+
+stopPreview=function(){
+  previewPlaying=false;
+  cancelAnimationFrame(previewRaf);
+  $v3('previewPlay').textContent='▶ 미리보기';
+  speechSynthesis.cancel();stopBgm();speechSync.active=false;
+};
+
+$v3('previewPlay').onclick=startPreview;
+$v3('prevScene').onclick=()=>moveScene(-1);
+$v3('nextScene').onclick=()=>moveScene(1);
+
+['script','brand','phone','subtitleStyle','rate'].forEach(id=>{
+  const el=$v3(id); if(el)el.addEventListener('input',()=>{captionMotion.index=-1;renderStill()});
+});
+
+applyTemplate('clean');
 
 </script>
 </body></html>
