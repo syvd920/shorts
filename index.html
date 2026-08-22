@@ -80,6 +80,46 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
 .templateHero.configLocked .configSummary{display:block}
 @media(max-width:700px){.setupOptions{grid-template-columns:1fr}.setupAction{justify-content:stretch}.setupStart{width:100%}}
 </style>
+
+<style>
+/* V3.5: keep the original editor + right-side preview layout */
+.wrap{align-items:start}
+.templateHero{grid-column:auto}
+.templateHero.configLocked{
+  padding:12px 14px;
+  margin-bottom:14px;
+  background:#fff;
+}
+.templateHero.configLocked .templateHeroHead,
+.templateHero.configLocked .templateGrid,
+.templateHero.configLocked .setupOptions,
+.templateHero.configLocked .setupAction{
+  display:none !important;
+}
+.templateHero.configLocked .configSummary{
+  display:flex !important;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin:0;
+  padding:0;
+  background:transparent;
+}
+.configSummaryText{min-width:0}
+.configSummaryText b{display:block;color:#222a37;font-size:12px}
+.configSummaryText span{display:block;color:#8a93a2;font-size:10px;margin-top:2px}
+.reselectBtn{
+  flex:0 0 auto;border:1px solid #e1e5eb;background:#fff;color:#4d5665;
+  border-radius:10px;padding:7px 10px;font-size:10px;font-weight:800;cursor:pointer
+}
+.reselectBtn:hover{background:#f6f7f9}
+body.templateEditing #projectFlow{display:none !important}
+body.templateEditing .previewCard{display:block !important}
+@media(min-width:901px){
+  .previewCard{position:sticky;top:92px}
+}
+</style>
+
 </head>
 <body>
 <div class="top"><div class="brandTitle"><span class="brandMark">R</span><div><b>부동산 쇼츠 스튜디오</b><small>REAL ESTATE SHORTS MAKER</small></div></div><div class="topState"><span class="stateDot"></span>프로토타입</div></div>
@@ -135,10 +175,16 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
         </div>
       </div>
       <div class="setupAction">
-        <button type="button" class="primary setupStart" id="startProject">이 설정으로 시작하기</button>
+        <button type="button" class="primary setupStart" id="startProject">이 템플릿으로 시작하기</button>
       </div>
 
-      <div class="configSummary" id="configSummary"></div>
+      <div class="configSummary" id="configSummary">
+  <div class="configSummaryText">
+    <b id="configSummaryTitle">클린 매물형</b>
+    <span id="configSummaryDetail">깔끔형 · 강조색 노랑</span>
+  </div>
+  <button type="button" class="reselectBtn" id="reselectTemplate">템플릿 다시 선택</button>
+</div>
 </section>
 
     <div id="projectFlow" class="projectFlow lockedFlow">
@@ -346,7 +392,7 @@ function stopRecording(){if(stopping===false)stopping=true;cancelAnimationFrame(
 $('renderBtn').onclick=renderVideo;$('stopBtn').onclick=stopRecording;
 
 
-// ===== V3.4 template / subtitle / audio / sync layer =====
+// ===== V3.5 template / subtitle / audio / sync layer =====
 let activeTemplate='clean';
 let projectStarted=false;
 let accentColor='#FFD84D';
@@ -801,26 +847,39 @@ function startProjectFlow(){
 
   const hero=document.querySelector('.templateHero');
   if(hero)hero.classList.add('configLocked');
+  document.body.classList.remove('templateEditing');
 
   const flow=$v3('projectFlow');
-  if(flow){
-    flow.classList.remove('lockedFlow');
-    flow.scrollIntoView({behavior:'smooth',block:'start'});
-  }
+  if(flow)flow.classList.remove('lockedFlow');
 
   const cfg=templateConfig[activeTemplate]||templateConfig.clean;
   const subtitleText=$v3('subtitleStyle')?.selectedOptions?.[0]?.textContent||'';
   const colorName=document.querySelector('.colorDot.active')?.getAttribute('aria-label')||'';
-  const summary=$v3('configSummary');
-  if(summary)summary.textContent=`${cfg.name} · ${subtitleText} · 강조색 ${colorName}`;
+  if($v3('configSummaryTitle'))$v3('configSummaryTitle').textContent=cfg.name;
+  if($v3('configSummaryDetail'))$v3('configSummaryDetail').textContent=`${subtitleText} · 강조색 ${colorName}`;
 
-  // Lock visual settings into the project so preview/render use one stable state.
   captionMotion.index=-1;
   renderStill();
 }
+
+function reopenTemplateSetup(){
+  // Preserve all property information, photos and script; only reopen the visual preset setup.
+  projectStarted=false;
+  const hero=document.querySelector('.templateHero');
+  if(hero)hero.classList.remove('configLocked');
+  document.body.classList.add('templateEditing');
+
+  const flow=$v3('projectFlow');
+  if(flow)flow.classList.add('lockedFlow');
+
+  window.scrollTo({top:0,behavior:'smooth'});
+}
 const startBtn=$v3('startProject');
 if(startBtn)startBtn.addEventListener('click',startProjectFlow);
+const reselectBtn=$v3('reselectTemplate');
+if(reselectBtn)reselectBtn.addEventListener('click',reopenTemplateSetup);
 
+document.body.classList.add('templateEditing');
 applyTemplate('clean');
 
 </script>
