@@ -82,7 +82,7 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
 </style>
 
 <style>
-/* V3.8: keep the original editor + right-side preview layout */
+/* V3.9: keep the original editor + right-side preview layout */
 .wrap{align-items:start}
 .templateHero{grid-column:auto}
 .templateHero.configLocked{
@@ -122,7 +122,7 @@ body.templateEditing .previewCard{display:block !important}
 
 
 <style>
-/* V3.8 layout correction: preview stays in the right column */
+/* V3.9 layout correction: preview stays in the right column */
 .wrap{
   max-width:1500px !important;
   grid-template-columns:minmax(520px,1fr) minmax(360px,430px) !important;
@@ -145,7 +145,7 @@ body.templateEditing .previewCard{display:block !important}
 
 
 <style>
-/* V3.8 desktop layout: wide editor + independent right preview */
+/* V3.9 desktop layout: wide editor + independent right preview */
 body{min-width:1280px}
 .wrap{
   max-width:1680px !important;
@@ -185,7 +185,7 @@ body{min-width:1280px}
 
 
 <style>
-/* V3.8: preview must not influence editor position */
+/* V3.9: preview must not influence editor position */
 body{min-width:1280px}
 .wrap{
   max-width:none !important;
@@ -211,6 +211,46 @@ body{min-width:1280px}
   margin:0 !important;
   grid-column:auto !important;
   grid-row:auto !important;
+}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+.full{grid-column:1 / -1 !important}
+.templateGrid{grid-template-columns:repeat(4,minmax(0,1fr)) !important}
+.phoneWrap{max-width:330px;margin-left:auto;margin-right:auto}
+</style>
+
+
+<style>
+/* V3.9: editor stays left, preview sits immediately beside it */
+body{min-width:1620px}
+.wrap{
+  width:1594px !important;
+  max-width:none !important;
+  margin:24px 0 0 24px !important;
+  padding:0 0 40px 0 !important;
+  display:grid !important;
+  grid-template-columns:1180px 390px !important;
+  gap:24px !important;
+  align-items:start !important;
+}
+.wrap > .card:first-child{
+  width:1180px !important;
+  max-width:1180px !important;
+  min-width:1180px !important;
+  margin:0 !important;
+  grid-column:1 !important;
+  grid-row:1 !important;
+}
+.wrap > .card:last-child{
+  width:390px !important;
+  min-width:390px !important;
+  max-width:390px !important;
+  margin:0 !important;
+  grid-column:2 !important;
+  grid-row:1 !important;
+  position:sticky !important;
+  top:92px !important;
+  right:auto !important;
+  left:auto !important;
 }
 .grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
 .full{grid-column:1 / -1 !important}
@@ -490,7 +530,7 @@ function stopRecording(){if(stopping===false)stopping=true;cancelAnimationFrame(
 $('renderBtn').onclick=renderVideo;$('stopBtn').onclick=stopRecording;
 
 
-// ===== V3.8 template / subtitle / audio / sync layer =====
+// ===== V3.9 template / subtitle / audio / sync layer =====
 let activeTemplate='clean';
 let projectStarted=false;
 let accentColor='#FFD84D';
