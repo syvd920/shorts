@@ -7,6 +7,35 @@
 <style>
 *{box-sizing:border-box}html{background:#f5f7fb}body{margin:0;font-family:Inter,Arial,'Noto Sans KR',sans-serif;background:#f5f7fb;color:#172033;-webkit-font-smoothing:antialiased}.top{height:68px;background:#fff;border-bottom:1px solid #e8ecf2;display:flex;align-items:center;justify-content:space-between;padding:0 30px;position:sticky;top:0;z-index:20}.brandTitle{display:flex;align-items:center;gap:12px}.brandTitle b{display:block;font-size:16px;letter-spacing:-.3px}.brandTitle small{display:block;margin-top:3px;color:#97a0b3;font-size:10px;font-weight:700;letter-spacing:.9px}.brandMark{width:34px;height:34px;border-radius:10px;background:#222b45;color:#fff;display:grid;place-items:center;font-size:15px;font-weight:900}.topState{font-size:12px;font-weight:700;color:#626d80;background:#f7f8fb;border:1px solid #e7eaf0;padding:7px 10px;border-radius:999px;display:flex;align-items:center;gap:7px}.stateDot{width:7px;height:7px;border-radius:50%;background:#33b66b}.wrap{max-width:1460px;margin:24px auto;padding:0 20px 40px;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:20px;align-items:start}.card{background:#fff;border:1px solid #e7eaf0;border-radius:18px;padding:24px;box-shadow:0 10px 28px rgba(26,35,52,.045)}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.full{grid-column:1/-1}label{display:block;font-size:12px;font-weight:800;color:#465066;margin-bottom:7px}input,select,textarea{width:100%;border:1px solid #dfe4eb;border-radius:10px;padding:11px 12px;font-size:14px;background:#fff;color:#172033;outline:none;transition:.15s}input:focus,select:focus,textarea:focus{border-color:#8b94a7;box-shadow:0 0 0 3px rgba(80,93,120,.08)}textarea{min-height:175px;resize:vertical;line-height:1.65}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}button{border:0;border-radius:10px;padding:11px 15px;font-size:13px;font-weight:800;cursor:pointer;transition:.15s}button:hover{transform:translateY(-1px)}button:disabled{opacity:.45;cursor:not-allowed;transform:none}.primary{background:#2f5bea;color:#fff}.dark{background:#1f2937;color:#fff}.ghost{background:#f2f5fb;color:#344057;border:1px solid #e3e8f0}.green{background:#172033;color:#fff}.danger{background:#fff2f2;color:#b83a3a;border:1px solid #ffdede}.photos{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:12px}.photo{position:relative;cursor:grab}.photo img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:10px;background:#eef1f5;border:1px solid #e7eaf0}.photo span{position:absolute;left:6px;top:6px;background:rgba(20,27,40,.78);color:white;border-radius:6px;padding:3px 6px;font-size:10px}.photo button{position:absolute;right:6px;top:6px;width:25px;height:25px;padding:0;border-radius:50%;background:rgba(26,32,44,.82);color:#fff;font-size:13px}.uploadBox{border:1px dashed #cbd3de;border-radius:12px;padding:15px;background:#fafbfc}.uploadBox input{margin-top:5px;background:#fff}.uploadHint{font-size:11px;color:#8a94a6;margin-top:7px;line-height:1.55}.phoneWrap{display:flex;justify-content:center;padding:4px 0}.phone{width:min(350px,100%);aspect-ratio:9/16;background:#0b0d12;border-radius:27px;overflow:hidden;position:relative;box-shadow:0 24px 55px rgba(23,32,51,.16);border:7px solid #171c27}.phone canvas{width:100%;height:100%;display:block}.status{margin-top:12px;padding:13px 14px;border-radius:11px;background:#f8f9fb;border:1px solid #eaedf2;font-size:12px;color:#626d80;line-height:1.6}.previewSpec{margin-top:18px}.small{font-size:11px;color:#8a94a6;line-height:1.6}.step{font-size:10px;font-weight:900;color:#2f5bea;letter-spacing:1.15px;margin-bottom:6px}h2{margin:0 0 16px;font-size:19px;letter-spacing:-.45px}.sep{height:1px;background:#edf0f4;margin:23px 0}.download a{display:inline-flex;align-items:center;text-decoration:none;background:#172033;color:#fff;border-radius:10px;padding:11px 15px;font-weight:800;font-size:13px;margin-top:10px}.meter{height:6px;background:#edf0f4;border-radius:99px;overflow:hidden;margin-top:9px}.meter div{height:100%;width:0;background:#2f5bea;transition:.15s}.note{background:#f8fafc;border:1px solid #e6eaf0;color:#5b6577;padding:12px 13px;border-radius:10px;font-size:11px;line-height:1.65}.note b{color:#283246}.previewControls{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin-top:14px}.previewControls button{min-width:88px}.sceneInfo{text-align:center;font-size:11px;font-weight:800;color:#707b8d;margin-top:9px}.previewHint{text-align:center;font-size:11px;color:#9aa3b2;margin-top:4px}.card:last-child{position:sticky;top:92px}.card:last-child h2{text-align:center}.card:last-child .step{text-align:center}@media(max-width:900px){.top{padding:0 16px}.wrap{grid-template-columns:1fr;padding:0 12px 30px}.grid{grid-template-columns:1fr}.full{grid-column:auto}.photos{grid-template-columns:repeat(4,1fr)}.card:last-child{position:static}}
 </style>
+
+<style>
+:root{--ink:#111827;--muted:#7b8494;--line:#e8ebf0;--panel:#ffffff;--bg:#f4f6f9;--accent:#635bff}
+body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
+.top{height:72px;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-bottom:1px solid #eceef2}
+.brandMark{background:linear-gradient(145deg,#111827,#30394b);box-shadow:0 8px 20px rgba(17,24,39,.16)}
+.card{border:1px solid #eaedf2;border-radius:22px;box-shadow:0 18px 50px rgba(20,28,45,.055)}
+.primary{background:linear-gradient(135deg,#635bff,#4f46e5);box-shadow:0 8px 20px rgba(79,70,229,.18)}
+.templateGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:8px}
+.templateCard{border:1px solid #e4e8ef;background:#fff;border-radius:14px;padding:11px;cursor:pointer;transition:.18s;text-align:left}
+.templateCard:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(25,32,48,.08)}
+.templateCard.active{border-color:#6d64ff;box-shadow:0 0 0 3px rgba(99,91,255,.10)}
+.templateThumb{height:76px;border-radius:10px;background:linear-gradient(145deg,#1d2432,#3b4558);position:relative;overflow:hidden;margin-bottom:8px}
+.templateThumb:before{content:"";position:absolute;inset:9px 18px;background:linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.04));border-radius:7px}
+.templateThumb span{position:absolute;left:10px;right:10px;bottom:10px;color:#fff;font-weight:900;font-size:10px;text-align:center;text-shadow:0 2px 5px rgba(0,0,0,.5)}
+.templateCard b{font-size:12px;color:#273043}.templateCard small{display:block;color:#9aa2b1;font-size:9px;margin-top:3px}
+.colorRow{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.colorDot{width:27px;height:27px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1px #dfe3ea;cursor:pointer}
+.colorDot.active{box-shadow:0 0 0 2px #252b37}
+.audioGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.audioPanel{border:1px solid #e7eaf0;border-radius:14px;padding:13px;background:#fbfcfd}
+.audioPanel h4{margin:0 0 10px;font-size:12px}
+.rangeRow{display:grid;grid-template-columns:72px 1fr 38px;align-items:center;gap:8px;font-size:11px;color:#737d8f;margin-top:8px}
+.rangeRow input{padding:0}
+.syncBadge{display:inline-flex;align-items:center;gap:6px;background:#eefbf3;color:#27824d;border:1px solid #d8f3e3;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}
+.popBadge{display:inline-flex;background:#fff4df;color:#a96300;border:1px solid #ffe2ad;border-radius:999px;padding:5px 8px;font-size:10px;font-weight:800}
+@media(max-width:700px){.templateGrid{grid-template-columns:repeat(2,1fr)}.audioGrid{grid-template-columns:1fr}}
+</style>
+
 </head>
 <body>
 <div class="top"><div class="brandTitle"><span class="brandMark">R</span><div><b>부동산 쇼츠 스튜디오</b><small>REAL ESTATE SHORTS MAKER</small></div></div><div class="topState"><span class="stateDot"></span>프로토타입</div></div>
@@ -37,12 +66,59 @@
     <div class="grid">
       <div><label>상호</label><input id="brand" value="○○공인중개사사무소"></div>
       <div><label>전화번호</label><input id="phone" placeholder="010-0000-0000"></div>
-      <div><label>자막 스타일</label><select id="subtitleStyle"><option value="clean">깔끔형</option><option value="strong">강조형</option><option value="premium">고급형</option></select></div>
+      
+<div class="full">
+  <label>영상 템플릿</label>
+  <div class="templateGrid" id="templateGrid">
+    <div class="templateCard active" data-template="clean"><div class="templateThumb"><span>깔끔한 매물 소개</span></div><b>클린 매물형</b><small>정돈된 자막 · 부드러운 모션</small></div>
+    <div class="templateCard" data-template="impact"><div class="templateThumb" style="background:linear-gradient(145deg,#151515,#613cff)"><span>핵심 포인트 POP</span></div><b>임팩트 광고형</b><small>강조색 · POP · 효과음</small></div>
+    <div class="templateCard" data-template="luxury"><div class="templateThumb" style="background:linear-gradient(145deg,#161b24,#806c3f)"><span>PREMIUM HOME</span></div><b>고급 매물형</b><small>절제된 타이포 · 느린 모션</small></div>
+    <div class="templateCard" data-template="fast"><div class="templateThumb" style="background:linear-gradient(145deg,#202939,#00a67d)"><span>빠르게 핵심만</span></div><b>퀵 쇼츠형</b><small>빠른 전환 · 경쾌한 POP</small></div>
+  </div>
+</div>
+<div><label>자막 스타일</label><select id="subtitleStyle"><option value="clean">깔끔형</option><option value="strong">강조형</option><option value="premium">고급형</option></select>
+  <div class="colorRow" id="accentRow">
+    <span class="small">강조색</span>
+    <button type="button" class="colorDot active" data-color="#FFD84D" style="background:#FFD84D" aria-label="노랑"></button>
+    <button type="button" class="colorDot" data-color="#7C6CFF" style="background:#7C6CFF" aria-label="보라"></button>
+    <button type="button" class="colorDot" data-color="#2ED3A3" style="background:#2ED3A3" aria-label="민트"></button>
+    <button type="button" class="colorDot" data-color="#FF6B6B" style="background:#FF6B6B" aria-label="코랄"></button>
+  </div>
+</div>
       <div><label>TTS 속도</label><select id="rate"><option value="0.92">차분하게</option><option value="1.0" selected>보통</option><option value="1.08">조금 빠르게</option><option value="1.16">빠르게</option></select></div>
     </div>
 
     <div class="sep"></div><div class="step">STEP 4</div><h2>완성 영상 만들기</h2>
-    <div class="note"><b>영상 생성 안내</b><br>영상 만들기를 누른 뒤 Chrome 공유창에서 <b>현재 탭</b>을 선택하고 <b>탭 오디오 공유</b>를 켜주세요. TTS 음성과 자막이 영상에 함께 반영됩니다.</div>
+    
+<div class="sep"></div>
+<div class="step">AUDIO</div>
+<h2>음악 · 효과음</h2>
+<div class="audioGrid">
+  <div class="audioPanel">
+    <h4>BGM</h4>
+    <select id="bgmType">
+      <option value="none">사용 안 함</option>
+      <option value="modern">모던 하우스</option>
+      <option value="bright">밝은 쇼츠</option>
+      <option value="luxury">고급 매물</option>
+    </select>
+    <div class="rangeRow"><span>BGM 볼륨</span><input id="bgmVol" type="range" min="0" max="100" value="18"><b id="bgmVolTxt">18</b></div>
+  </div>
+  <div class="audioPanel">
+    <h4>효과음</h4>
+    <select id="sfxType">
+      <option value="pop">POP + 전환</option>
+      <option value="soft">부드러운 강조</option>
+      <option value="none">사용 안 함</option>
+    </select>
+    <div class="rangeRow"><span>효과음</span><input id="sfxVol" type="range" min="0" max="100" value="45"><b id="sfxVolTxt">45</b></div>
+  </div>
+</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:10px">
+  <span class="syncBadge">● TTS 기준 자막 동기화</span>
+  <span class="popBadge">POP 자막 효과</span>
+</div>
+<div class="note"><b>영상 생성 안내</b><br>영상 만들기를 누른 뒤 Chrome 공유창에서 <b>현재 탭</b>을 선택하고 <b>탭 오디오 공유</b>를 켜주세요. TTS 음성과 자막이 영상에 함께 반영됩니다.</div>
     <div class="actions"><button class="green" id="renderBtn">쇼츠 영상 만들기</button><button class="danger" id="stopBtn" disabled>중지</button></div>
     <div id="status" class="status">사진을 올린 뒤 대본을 만들고 영상을 생성해보세요.</div>
     <div class="meter"><div id="bar"></div></div><div id="download" class="download"></div>
@@ -166,5 +242,192 @@ async function renderVideo(){
 }
 function stopRecording(){if(stopping===false)stopping=true;cancelAnimationFrame(raf);speechSynthesis.cancel();if(recorder&&recorder.state==='recording')recorder.stop()}
 $('renderBtn').onclick=renderVideo;$('stopBtn').onclick=stopRecording;
+
+// ===== V3 presentation/audio/sync layer =====
+let activeTemplate='clean', accentColor='#FFD84D';
+const $v3=id=>document.getElementById(id);
+
+document.querySelectorAll('.templateCard').forEach(card=>{
+  card.addEventListener('click',()=>{
+    document.querySelectorAll('.templateCard').forEach(x=>x.classList.remove('active'));
+    card.classList.add('active'); activeTemplate=card.dataset.template;
+    const map={clean:'clean',impact:'strong',luxury:'premium',fast:'strong'};
+    if($v3('subtitleStyle')) $v3('subtitleStyle').value=map[activeTemplate]||'clean';
+    renderStill();
+  });
+});
+document.querySelectorAll('.colorDot').forEach(dot=>{
+  dot.addEventListener('click',()=>{
+    document.querySelectorAll('.colorDot').forEach(x=>x.classList.remove('active'));
+    dot.classList.add('active'); accentColor=dot.dataset.color; renderStill();
+  });
+});
+['bgmVol','sfxVol'].forEach(id=>{
+  const el=$v3(id), out=$v3(id+'Txt');
+  if(el&&out) el.addEventListener('input',()=>out.textContent=el.value);
+});
+
+// WebAudio-generated tones: no external audio files or API are required.
+let audioCtx=null, masterDest=null, bgmTimer=null;
+function ensureAudio(){
+  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  return audioCtx;
+}
+function tone(freq=660,dur=.07,vol=.08,type='sine',when=0,dest=null){
+  const c=ensureAudio(), o=c.createOscillator(), g=c.createGain();
+  o.type=type;o.frequency.setValueAtTime(freq,c.currentTime+when);
+  g.gain.setValueAtTime(0.0001,c.currentTime+when);
+  g.gain.exponentialRampToValueAtTime(Math.max(.0002,vol),c.currentTime+when+.008);
+  g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+when+dur);
+  o.connect(g);g.connect(dest||c.destination);o.start(c.currentTime+when);o.stop(c.currentTime+when+dur+.02);
+}
+function playPop(dest=null){
+  if(!$v3('sfxType')||$v3('sfxType').value==='none') return;
+  const v=(+$v3('sfxVol').value/100)*.16;
+  const soft=$v3('sfxType').value==='soft';
+  tone(soft?520:760,.06,v,soft?'sine':'triangle',0,dest);
+  tone(soft?660:1080,.055,v*.65,'sine',.035,dest);
+}
+function playWhoosh(dest=null){
+  if(!$v3('sfxType')||$v3('sfxType').value==='none') return;
+  const c=ensureAudio(), o=c.createOscillator(), g=c.createGain(), v=(+$v3('sfxVol').value/100)*.05;
+  o.type='sawtooth';o.frequency.setValueAtTime(170,c.currentTime);o.frequency.exponentialRampToValueAtTime(650,c.currentTime+.14);
+  g.gain.setValueAtTime(.0001,c.currentTime);g.gain.linearRampToValueAtTime(v,c.currentTime+.04);g.gain.exponentialRampToValueAtTime(.0001,c.currentTime+.16);
+  o.connect(g);g.connect(dest||c.destination);o.start();o.stop(c.currentTime+.17);
+}
+function startBgm(dest=null){
+  stopBgm();
+  if(!$v3('bgmType')||$v3('bgmType').value==='none') return;
+  const patterns={
+    modern:[[220,0],[330,.28],[440,.56],[330,.84]],
+    bright:[[330,0],[440,.22],[550,.44],[660,.66]],
+    luxury:[[196,0],[247,.45],[294,.9],[247,1.35]]
+  };
+  const pat=patterns[$v3('bgmType').value]||patterns.modern;
+  const beat=$v3('bgmType').value==='luxury'?1800:1100;
+  const fire=()=>{const v=(+$v3('bgmVol').value/100)*.035;pat.forEach(([f,w])=>tone(f,.18,v,'sine',w,dest));};
+  fire();bgmTimer=setInterval(fire,beat);
+}
+function stopBgm(){if(bgmTimer){clearInterval(bgmTimer);bgmTimer=null}}
+
+// Speech boundary-driven caption sync.
+// Chrome exposes SpeechSynthesisUtterance.onboundary for spoken word/character boundaries.
+// We use actual speech progress instead of a separate estimated timer.
+let speechSync={active:false,charIndex:0,start:0,lastPop:-1,totalChars:1};
+function sentenceChunks(text){
+  const clean=(text||'').replace(/\s+/g,' ').trim();
+  if(!clean) return [];
+  const s=clean.match(/[^.!?。！？]+[.!?。！？]?/g)||[clean];
+  let offset=0;
+  return s.map(x=>{const t=x.trim();const st=clean.indexOf(t,offset);offset=st+t.length;return {text:t,start:st,end:st+t.length};});
+}
+function chunkAt(text,idx){
+  const chunks=sentenceChunks(text); if(!chunks.length)return {text:'',start:0,end:0,index:0};
+  let i=chunks.findIndex(c=>idx>=c.start&&idx<c.end);if(i<0)i=Math.min(chunks.length-1,Math.floor((idx/Math.max(1,text.length))*chunks.length));
+  return {...chunks[i],index:i};
+}
+function speakSynced(text, rate=1, onEnd=null, audioDest=null){
+  speechSynthesis.cancel(); stopBgm();
+  const u=new SpeechSynthesisUtterance(text);u.lang='ko-KR';u.rate=rate;
+  speechSync={active:true,charIndex:0,start:performance.now(),lastPop:-1,totalChars:Math.max(1,text.length),popChunkIndex:0,popStartedAt:performance.now()};
+  u.onstart=()=>{startBgm(audioDest);playPop(audioDest)};
+  u.onboundary=e=>{
+    if(typeof e.charIndex==='number'){
+      const prev=chunkAt(text,speechSync.charIndex).index;
+      speechSync.charIndex=e.charIndex;
+      const now=chunkAt(text,speechSync.charIndex).index;
+      if(now!==prev){playPop(audioDest);playWhoosh(audioDest)}
+    }
+  };
+  u.onend=()=>{speechSync.active=false;stopBgm();if(onEnd)onEnd()};
+  u.onerror=()=>{speechSync.active=false;stopBgm();if(onEnd)onEnd()};
+  speechSynthesis.speak(u); return u;
+}
+function currentSyncedCaption(){
+  const text=$v3('script')?.value||'';
+  return chunkAt(text,speechSync.charIndex);
+}
+
+// Override the old preview with speech-driven progress.
+if(typeof startPreview==='function'){
+  startPreview=function(){
+    if(!imageObjs.length){alert('사진을 먼저 올려주세요.');return}
+    const text=$v3('script').value.trim();if(!text){alert('대본을 먼저 만들어주세요.');return}
+    if(previewPlaying){stopPreview();return}
+    previewPlaying=true;$v3('previewPlay').textContent='⏸ 일시정지';
+    const rate=parseFloat($v3('rate').value);
+    speakSynced(text,rate,()=>{previewPlaying=false;$v3('previewPlay').textContent='▶ 미리보기';renderStill()});
+    const loop=()=>{
+      if(!previewPlaying)return;
+      const frac=Math.min(1,speechSync.charIndex/Math.max(1,text.length));
+      const total=estimateDuration(), t=frac*total;
+      drawFrame(t,total);updateSceneInfo(t);
+      previewRaf=requestAnimationFrame(loop);
+    };loop();
+  }
+}
+if(typeof stopPreview==='function'){
+  const oldStop=stopPreview;
+  stopPreview=function(){previewPlaying=false;cancelAnimationFrame(previewRaf);$v3('previewPlay').textContent='▶ 미리보기';speechSynthesis.cancel();stopBgm();}
+}
+
+// Patch canvas captions after each frame: clean, no black box, highlighted keyword, POP scale.
+// The original drawFrame still handles photos/brand. This overlay refreshes the subtitle area.
+const originalDrawFrame = typeof drawFrame==='function' ? drawFrame : null;
+if(originalDrawFrame){
+  drawFrame=function(t,total){
+    originalDrawFrame(t,total);
+    const c=$v3('canvas'),ctx=c.getContext('2d'),text=$v3('script')?.value||'';
+    const cap=speechSync.active?currentSyncedCaption():chunkAt(text,Math.floor((t/Math.max(.01,total))*text.length));
+    if(!cap.text)return;
+    // clear only lower caption band from original box/caption by redrawing image frame is not possible here,
+    // so cover with a transparent-friendly subtle gradient sampled as overlay rather than a black rectangle.
+    const y=1360;
+    const grad=ctx.createLinearGradient(0,y-150,0,1640);grad.addColorStop(0,'rgba(0,0,0,0)');grad.addColorStop(1,'rgba(0,0,0,.18)');
+    ctx.fillStyle=grad;ctx.fillRect(0,y-150,1080,300);
+    const chunkNow = speechSync.active ? currentSyncedCaption() : {index:0};
+    if (typeof speechSync.popChunkIndex === 'undefined') {
+      speechSync.popChunkIndex = chunkNow.index;
+      speechSync.popStartedAt = performance.now();
+    }
+    if (speechSync.popChunkIndex !== chunkNow.index) {
+      speechSync.popChunkIndex = chunkNow.index;
+      speechSync.popStartedAt = performance.now();
+    }
+    const popAge = Math.max(0, (performance.now() - (speechSync.popStartedAt || performance.now())) / 1000);
+    // Quick POP: 0.70 -> 1.18 -> 1.00 in about 0.18 sec.
+    let scale = 1;
+    if (speechSync.active && popAge < 0.18) {
+      if (popAge < 0.075) {
+        const q = popAge / 0.075;
+        scale = 0.70 + (1.18 - 0.70) * (1 - Math.pow(1 - q, 3));
+      } else {
+        const q = (popAge - 0.075) / 0.105;
+        scale = 1.18 + (1.00 - 1.18) * (1 - Math.pow(1 - q, 3));
+      }
+    }
+    ctx.save();ctx.translate(540,1460);ctx.scale(scale,scale);
+    ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';
+    const style=$v3('subtitleStyle')?.value||'clean';
+    const fs=style==='strong'?72:style==='premium'?62:66;
+    ctx.font=`900 ${fs}px "Noto Sans KR", Arial, sans-serif`;
+    const words=cap.text.split(/\s+/); const key=words.length>1?words[Math.floor(words.length/2)]:words[0];
+    const line=cap.text.length>22?[cap.text.slice(0,22),cap.text.slice(22)]:[cap.text];
+    line.forEach((ln,i)=>{
+      const yy=(i-(line.length-1)/2)*(fs+14);
+      ctx.strokeStyle='rgba(12,16,24,.88)';ctx.lineWidth=12;ctx.strokeText(ln,0,yy);
+      ctx.fillStyle='#fff';ctx.fillText(ln,0,yy);
+      if(style==='strong' && ln.includes(key)){
+        const before=ln.split(key)[0], fullW=ctx.measureText(ln).width, beforeW=ctx.measureText(before).width, keyW=ctx.measureText(key).width;
+        const x=-fullW/2+beforeW+keyW/2;
+        ctx.strokeStyle='rgba(12,16,24,.88)';ctx.lineWidth=12;ctx.strokeText(key,x,yy);
+        ctx.fillStyle=accentColor;ctx.fillText(key,x,yy);
+      }
+    });
+    ctx.restore();
+  }
+}
+
 </script>
 </body></html>
