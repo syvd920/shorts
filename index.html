@@ -54,6 +54,13 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
 @media(max-width:900px){.templateGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.templateHeroHead{flex-direction:column}.templateSelected{align-self:flex-start}}
 </style>
 
+
+<style>
+.subtitleHelp{margin:10px 0 2px;padding:11px 12px;border:1px solid #eceef2;border-radius:12px;background:#fafbfc;display:grid;gap:5px}
+.subtitleHelp b{font-size:11px;color:#303746}
+.subtitleHelp span{font-size:10px;color:#7d8797;line-height:1.45}
+.subtitleHelp strong{color:#343b49;margin-right:3px}
+</style>
 </head>
 <body>
 <div class="top"><div class="brandTitle"><span class="brandMark">R</span><div><b>부동산 쇼츠 스튜디오</b><small>REAL ESTATE SHORTS MAKER</small></div></div><div class="topState"><span class="stateDot"></span>프로토타입</div></div>
@@ -65,26 +72,26 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
         <div>
           <div class="step">TEMPLATE</div>
           <h2>영상 템플릿 선택</h2>
-          <p>템플릿을 선택하면 자막, 사진 모션, 강조 방식과 오디오 프리셋이 함께 바뀝니다.</p>
+          <p>템플릿마다 자막 크기·위치, 사진 줌/패닝 강도, 장면 템포, BGM·효과음이 실제로 다르게 적용됩니다.</p>
         </div>
         <span class="templateSelected" id="templateSelected">클린 매물형</span>
       </div>
       <div class="templateGrid" id="templateGrid">
         <button type="button" class="templateCard active" data-template="clean">
           <div class="templateThumb cleanThumb"><span>깔끔하게 매물 소개</span></div>
-          <b>클린 매물형</b><small>정돈된 자막 · 부드러운 줌</small>
+          <b>클린 매물형</b><small>하단 2줄 자막 · 느린 줌 · 차분한 전환</small>
         </button>
         <button type="button" class="templateCard" data-template="impact">
           <div class="templateThumb impactThumb"><span>핵심 포인트를 강하게</span></div>
-          <b>임팩트 광고형</b><small>강조색 · 빠른 POP · 강한 전환</small>
+          <b>임팩트 광고형</b><small>큰 자막 · 핵심정보 컬러 · 빠른 줌/패닝</small>
         </button>
         <button type="button" class="templateCard" data-template="luxury">
           <div class="templateThumb luxuryThumb"><span>PREMIUM PROPERTY</span></div>
-          <b>고급 매물형</b><small>절제된 타이포 · 느린 카메라</small>
+          <b>고급 매물형</b><small>작은 고급 타이포 · 느린 시네마 줌 · 효과음 최소</small>
         </button>
         <button type="button" class="templateCard" data-template="fast">
           <div class="templateThumb fastThumb"><span>빠르게 핵심만</span></div>
-          <b>퀵 쇼츠형</b><small>빠른 장면 · 경쾌한 자막</small>
+          <b>퀵 쇼츠형</b><small>짧은 장면 · 강한 줌/패닝 · 빠른 POP</small>
         </button>
       </div>
     </section>
@@ -117,7 +124,13 @@ body{background:linear-gradient(180deg,#f8f9fb 0,#f3f5f8 100%)}
       
 
 <div><label>자막 스타일</label><select id="subtitleStyle"><option value="clean">깔끔형</option><option value="strong">강조형</option><option value="premium">고급형</option></select>
-  <div class="colorRow" id="accentRow">
+  <div class="subtitleHelp" id="subtitleHelp">
+      <b>자막 스타일 안내</b>
+      <span><strong>깔끔형</strong> 흰색 굵은 자막 + 얇은 외곽선</span>
+      <span><strong>고급형</strong> 크기 작게 + 여백 넓게 + 절제된 등장</span>
+      <span><strong>강조형</strong> 가격·면적·방/욕실·매물종류 등 핵심정보를 강조색으로 표시</span>
+    </div>
+    <div class="colorRow" id="accentRow">
     <span class="small">강조색</span>
     <button type="button" class="colorDot active" data-color="#FFD84D" style="background:#FFD84D" aria-label="노랑"></button>
     <button type="button" class="colorDot" data-color="#7C6CFF" style="background:#7C6CFF" aria-label="보라"></button>
@@ -300,7 +313,7 @@ function stopRecording(){if(stopping===false)stopping=true;cancelAnimationFrame(
 $('renderBtn').onclick=renderVideo;$('stopBtn').onclick=stopRecording;
 
 
-// ===== V3.2 template / subtitle / audio / sync layer =====
+// ===== V3.3 template / subtitle / audio / sync layer =====
 let activeTemplate='clean';
 let accentColor='#FFD84D';
 let audioCtx=null, bgmTimer=null;
@@ -312,23 +325,23 @@ const $v3=id=>document.getElementById(id);
 const templateConfig={
   clean:{
     name:'클린 매물형', subtitle:'clean', bgm:'modern', sfx:'soft',
-    captionY:1450, fontSize:66, maxWidth:820, maxLines:2,
-    overlay:.10, motion:'soft'
+    captionY:1450, fontSize:64, maxWidth:820, maxLines:2,
+    overlay:0, motion:'soft', sceneFactor:1.0
   },
   impact:{
     name:'임팩트 광고형', subtitle:'strong', bgm:'bright', sfx:'pop',
-    captionY:1320, fontSize:78, maxWidth:850, maxLines:3,
-    overlay:.16, motion:'impact'
+    captionY:1300, fontSize:80, maxWidth:860, maxLines:3,
+    overlay:0, motion:'impact', sceneFactor:.82
   },
   luxury:{
     name:'고급 매물형', subtitle:'premium', bgm:'luxury', sfx:'soft',
-    captionY:1440, fontSize:62, maxWidth:790, maxLines:2,
-    overlay:.08, motion:'luxury'
+    captionY:1455, fontSize:56, maxWidth:760, maxLines:2,
+    overlay:0, motion:'luxury', sceneFactor:1.18
   },
   fast:{
     name:'퀵 쇼츠형', subtitle:'strong', bgm:'bright', sfx:'pop',
-    captionY:1280, fontSize:72, maxWidth:850, maxLines:3,
-    overlay:.14, motion:'fast'
+    captionY:1260, fontSize:74, maxWidth:865, maxLines:3,
+    overlay:0, motion:'fast', sceneFactor:.68
   }
 };
 
@@ -499,6 +512,84 @@ function popScaleFor(index){
   return 1.22+(1-1.22)*(1-Math.pow(1-q,3));
 }
 
+
+function escapeRegExp(v){return v.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+
+function collectHighlightTerms(){
+  const vals=[];
+  const add=v=>{
+    if(v==null)return;
+    String(v).split(/[,\n/·|]+/).map(x=>x.trim()).filter(x=>x.length>=2).forEach(x=>vals.push(x));
+  };
+  // Pull directly from property fields when present.
+  ['deal','price','area','rooms','baths','address','features'].forEach(id=>{
+    const el=$v3(id)||document.getElementById(id);
+    if(el) add(el.value);
+  });
+
+  // Generic real-estate patterns captured from the spoken caption/script.
+  const text=$v3('script')?.value||'';
+  const patterns=[
+    /\d+(?:[.,]\d+)?\s*억(?:\s*\d+\s*천)?/g,
+    /\d+(?:[.,]\d+)?\s*만(?:원)?/g,
+    /\d+(?:[.,]\d+)?\s*㎡/g,
+    /\d+(?:[.,]\d+)?\s*평/g,
+    /방\s*\d+\s*개?/g,
+    /욕실\s*\d+\s*개?/g,
+    /\d+\s*룸/g,
+    /매매|전세|월세|급매|반전세/g,
+    /[가-힣A-Za-z0-9]+역/g,
+    /남향|동향|서향|북향|남동향|남서향|즉시입주|신축|올수리|역세권|학세권|숲세권|조망|테라스|복층|주차/g
+  ];
+  patterns.forEach(rx=>(text.match(rx)||[]).forEach(add));
+  return [...new Set(vals)].sort((a,b)=>b.length-a.length);
+}
+
+function drawRichLine(ctx,line,y,style,fontSize){
+  const terms=collectHighlightTerms();
+  if(style!=='strong' || !terms.length){
+    ctx.strokeStyle='rgba(6,9,14,.92)';ctx.lineWidth=10;ctx.strokeText(line,0,y);
+    ctx.fillStyle=activeTemplate==='luxury'?'#F8F4EA':'#fff';ctx.fillText(line,0,y);
+    return;
+  }
+
+  // Find non-overlapping keyword ranges.
+  let ranges=[];
+  terms.forEach(term=>{
+    let from=0;
+    while(true){
+      const i=line.indexOf(term,from);
+      if(i<0)break;
+      const end=i+term.length;
+      if(!ranges.some(r=>!(end<=r.start||i>=r.end))) ranges.push({start:i,end,term});
+      from=end;
+    }
+  });
+  ranges.sort((a,b)=>a.start-b.start);
+  if(!ranges.length){
+    ctx.strokeStyle='rgba(6,9,14,.92)';ctx.lineWidth=10;ctx.strokeText(line,0,y);
+    ctx.fillStyle='#fff';ctx.fillText(line,0,y);return;
+  }
+
+  let segments=[],pos=0;
+  ranges.forEach(r=>{
+    if(r.start>pos)segments.push({text:line.slice(pos,r.start),hl:false});
+    segments.push({text:line.slice(r.start,r.end),hl:true});
+    pos=r.end;
+  });
+  if(pos<line.length)segments.push({text:line.slice(pos),hl:false});
+
+  const totalW=segments.reduce((a,x)=>a+ctx.measureText(x.text).width,0);
+  let x=-totalW/2;
+  ctx.textAlign='left';
+  segments.forEach(seg=>{
+    const w=ctx.measureText(seg.text).width;
+    ctx.strokeStyle='rgba(6,9,14,.92)';ctx.lineWidth=10;ctx.strokeText(seg.text,x,y);
+    ctx.fillStyle=seg.hl?accentColor:'#fff';ctx.fillText(seg.text,x,y);
+    x+=w;
+  });
+  ctx.textAlign='center';
+}
 function drawCaptionOverlay(t,total){
   const c=$v3('preview'),cx=c.getContext('2d');
   const cap=currentCaptionFromTime(t,total);
@@ -507,14 +598,8 @@ function drawCaptionOverlay(t,total){
   const style=$v3('subtitleStyle')?.value||cfg.subtitle;
   const fitted=fitCaption(cx,cap.text,cfg);
 
-  // Bottom readability gradient, never a solid black subtitle box.
-  const y0=cfg.captionY-190,y1=cfg.captionY+210;
-  const grad=cx.createLinearGradient(0,y0,0,y1);
-  grad.addColorStop(0,'rgba(0,0,0,0)');
-  grad.addColorStop(1,`rgba(0,0,0,${activeTemplate==='luxury'?.20:.28})`);
-  cx.fillStyle=grad;cx.fillRect(0,y0,1080,y1-y0);
-
-  const scale=popScaleFor(cap.index);
+  // No subtitle box, no black gradient: text is drawn directly over the image.
+  const scale=style==='premium'?1:popScaleFor(cap.index);
   cx.save();
   cx.translate(540,cfg.captionY);
   cx.scale(scale,scale);
@@ -522,25 +607,13 @@ function drawCaptionOverlay(t,total){
   cx.font=`900 ${fitted.fontSize}px "Noto Sans KR", Arial, sans-serif`;
 
   const lineGap=fitted.fontSize+15;
-  const keyWords=cap.text.split(/\s+/).filter(Boolean);
-  const key=keyWords.length>1?keyWords[Math.floor(keyWords.length/2)]:keyWords[0];
-
   fitted.lines.forEach((line,i)=>{
     const yy=(i-(fitted.lines.length-1)/2)*lineGap;
-    cx.strokeStyle=activeTemplate==='luxury'?'rgba(5,7,10,.72)':'rgba(6,9,14,.90)';
-    cx.lineWidth=style==='premium'?8:11;
-    cx.strokeText(line,0,yy);
-    cx.fillStyle=activeTemplate==='luxury'?'#F8F4EA':'#FFFFFF';
-    cx.fillText(line,0,yy);
-
-    if(style==='strong' && key && line.includes(key)){
-      const before=line.slice(0,line.indexOf(key));
-      const fullW=cx.measureText(line).width;
-      const beforeW=cx.measureText(before).width;
-      const keyW=cx.measureText(key).width;
-      const x=-fullW/2+beforeW+keyW/2;
-      cx.strokeStyle='rgba(6,9,14,.90)';cx.lineWidth=11;cx.strokeText(key,x,yy);
-      cx.fillStyle=accentColor;cx.fillText(key,x,yy);
+    if(style==='premium'){
+      cx.strokeStyle='rgba(8,10,14,.78)';cx.lineWidth=7;cx.strokeText(line,0,yy);
+      cx.fillStyle='#F7F3EA';cx.fillText(line,0,yy);
+    }else{
+      drawRichLine(cx,line,yy,style,fitted.fontSize);
     }
   });
   cx.restore();
@@ -552,37 +625,42 @@ drawFrame=function(t,total){
   ctx.fillStyle='#111';ctx.fillRect(0,0,canvas.width,canvas.height);
   const cfg=templateConfig[activeTemplate]||templateConfig.clean;
   if(imageObjs.length){
-    const per=total/imageObjs.length;
+    const per=Math.max(.1,total/imageObjs.length);
     const idx=Math.min(imageObjs.length-1,Math.floor(t/per));
     const local=Math.min(1,(t%per)/per);
     const img=imageObjs[idx];
-    let zoom=1.03,px=.5,py=.5;
+    let zoom=1.02,px=.5,py=.5;
 
     if(cfg.motion==='soft'){
-      zoom=1.025+local*.065;
-      if(idx%2)px=.47+local*.06;
+      // Clearly visible but calm Ken Burns.
+      zoom=1.02+local*.13;
+      if(idx%4===0) px=.42+local*.16;
+      if(idx%4===1) px=.58-local*.16;
+      if(idx%4===2) py=.42+local*.16;
+      if(idx%4===3) py=.58-local*.16;
     }else if(cfg.motion==='impact'){
-      zoom=1.05+local*.13;
-      px=idx%2?.44+local*.10:.55-local*.08;
+      zoom=1.03+local*.24;
+      px=idx%2===0 ? .38+local*.24 : .62-local*.24;
+      py=idx%3===0 ? .44+local*.10 : .52-local*.06;
     }else if(cfg.motion==='luxury'){
-      zoom=1.015+local*.045;
-      py=.48+local*.035;
+      zoom=1.015+local*.085;
+      px=.47+local*.06;
+      py=.49+local*.035;
     }else{
-      zoom=1.055+local*.14;
-      px=idx%3===1?.42+local*.15:.53-local*.08;
-      py=idx%3===2?.44+local*.10:.5;
+      zoom=1.04+local*.28;
+      if(idx%2===0){px=.35+local*.30;py=.46+local*.08}
+      else{px=.65-local*.30;py=.54-local*.08}
     }
 
     drawCover(img,zoom,px,py);
-    ctx.fillStyle=`rgba(0,0,0,${cfg.overlay})`;ctx.fillRect(0,0,1080,1920);
   }else{
     const g=ctx.createLinearGradient(0,0,1080,1920);
     g.addColorStop(0,'#202736');g.addColorStop(1,'#11151d');
     ctx.fillStyle=g;ctx.fillRect(0,0,1080,1920);
   }
 
-  // Brand footer
-  ctx.fillStyle=activeTemplate==='luxury'?'rgba(12,12,12,.48)':'rgba(8,11,18,.62)';
+  // Brand footer only; subtitle itself has no background.
+  ctx.fillStyle='rgba(8,11,18,.62)';
   ctx.fillRect(0,1780,1080,140);
   ctx.font='700 38px Arial, sans-serif';ctx.textAlign='center';ctx.fillStyle='#fff';
   ctx.fillText(`${$('brand').value}${$('phone').value?'  |  '+$('phone').value:''}`,540,1850);
