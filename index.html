@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>부동산 쇼츠 제작기 · Free V2</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,'Noto Sans KR',sans-serif;background:#f3f5f7;color:#111827}.top{height:64px;background:#111827;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px;font-weight:800}.badge{font-size:12px;background:#16a34a;padding:7px 10px;border-radius:999px}.wrap{max-width:1440px;margin:20px auto;padding:0 18px;display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);gap:18px}.card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 5px 18px #0000000d}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}input,select,textarea{width:100%;border:1px solid #d1d5db;border-radius:10px;padding:11px 12px;font-size:14px;background:white}textarea{min-height:170px;resize:vertical}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}button{border:0;border-radius:10px;padding:11px 15px;font-weight:800;cursor:pointer}.primary{background:#2563eb;color:#fff}.dark{background:#111827;color:#fff}.ghost{background:#eef2ff;color:#1e40af}.green{background:#16a34a;color:#fff}.danger{background:#fee2e2;color:#991b1b}.photos{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:10px}.photo{position:relative}.photo img{width:100%;aspect-ratio:9/16;object-fit:cover;border-radius:8px;background:#e5e7eb}.photo span{position:absolute;left:5px;top:5px;background:#0009;color:white;border-radius:6px;padding:3px 6px;font-size:10px}.phoneWrap{display:flex;justify-content:center}.phone{width:min(360px,100%);aspect-ratio:9/16;background:#0b0b0d;border-radius:28px;overflow:hidden;position:relative;box-shadow:0 16px 50px #0002}.phone canvas{width:100%;height:100%;display:block}.status{margin-top:12px;padding:12px;border-radius:10px;background:#f3f4f6;font-size:13px;line-height:1.55}.small{font-size:12px;color:#6b7280;line-height:1.55}.step{font-size:12px;font-weight:800;color:#2563eb;margin-bottom:5px}h2{margin:0 0 14px;font-size:20px}.sep{height:1px;background:#e5e7eb;margin:20px 0}.download a{display:inline-block;text-decoration:none;background:#111827;color:#fff;border-radius:10px;padding:12px 16px;font-weight:800;margin-top:10px}.meter{height:8px;background:#e5e7eb;border-radius:99px;overflow:hidden;margin-top:8px}.meter div{height:100%;width:0;background:#2563eb;transition:.15s}.note{background:#fffbeb;border:1px solid #fde68a;color:#78350f;padding:11px;border-radius:10px;font-size:12px;line-height:1.5}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef2ff;color:#3730a3;font-size:11px;font-weight:800;margin:2px}.inline{display:flex;gap:8px;align-items:end}.inline>*{flex:1}@media(max-width:900px){.wrap{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.full{grid-column:auto}.photos{grid-template-columns:repeat(4,1fr)}}
+</style>
+</head>
+<body>
+<div class="top"><div>부동산 쇼츠 제작기 · Free Prototype V2</div><div class="badge">서버비 0원 구조</div></div>
+<div class="wrap">
+  <div class="card">
+    <div class="step">STEP 1</div><h2>매물 직접 등록</h2>
+    <div class="grid">
+      <div><label>매물명</label><input id="name" placeholder="예: 잠실 ○○아파트 84㎡"></div>
+      <div><label>거래유형</label><select id="deal"><option>매매</option><option>전세</option><option>월세</option></select></div>
+      <div><label>가격</label><input id="price" placeholder="예: 18억 5,000만원"></div>
+      <div><label>면적</label><input id="area" placeholder="예: 전용 84㎡"></div>
+      <div><label>방</label><input id="rooms" placeholder="3"></div>
+      <div><label>욕실</label><input id="baths" placeholder="2"></div>
+      <div><label>방향</label><input id="direction" placeholder="남향"></div>
+      <div><label>입주</label><input id="movein" placeholder="즉시입주"></div>
+      <div class="full"><label>핵심 특징</label><input id="features" placeholder="역세권, 올수리, 채광, 주차편리"></div>
+      <div><label>대본 톤</label><select id="tone"><option>전문적으로</option><option>빠르고 강하게</option><option>고급스럽게</option></select></div>
+      <div><label>사진 업로드</label><input id="images" type="file" accept="image/*" multiple></div>
+      <div class="full photos" id="photos"></div>
+    </div>
+    <div class="actions"><button class="primary" id="genBtn">무료 대본 초안 만들기</button><button class="ghost" id="ttsBtn">무료 TTS 미리듣기</button></div>
+
+    <div class="sep"></div><div class="step">STEP 2</div><h2>대본 확인 / 수정</h2>
+    <textarea id="script" placeholder="대본이 여기에 생성됩니다."></textarea>
+    <p class="small">V2의 대본 생성은 API가 없는 무료 규칙 기반입니다. 상용화 단계에서 텍스트 AI만 선택적으로 연결할 수 있습니다.</p>
+
+    <div class="sep"></div><div class="step">STEP 3</div><h2>브랜드와 자막</h2>
+    <div class="grid">
+      <div><label>상호</label><input id="brand" value="○○공인중개사사무소"></div>
+      <div><label>전화번호</label><input id="phone" placeholder="010-0000-0000"></div>
+      <div><label>자막 스타일</label><select id="subtitleStyle"><option value="clean">깔끔형</option><option value="strong">강조형</option><option value="premium">프리미엄형</option></select></div>
+      <div><label>TTS 속도</label><select id="rate"><option value="0.92">차분하게</option><option value="1.0" selected>보통</option><option value="1.08">조금 빠르게</option><option value="1.16">빠르게</option></select></div>
+    </div>
+
+    <div class="sep"></div><div class="step">STEP 4</div><h2>완성 영상 만들기</h2>
+    <div class="note"><b>TTS 포함 완전 무료 녹화 방법</b><br>버튼을 누른 뒤 Chrome 공유창에서 <b>현재 탭</b>을 선택하고 <b>탭 오디오 공유</b>를 켜주세요. 브라우저 TTS 소리가 영상에 함께 녹음됩니다. 별도 TTS API 비용이 없습니다.</div>
+    <div class="actions"><button class="green" id="renderBtn">TTS + 자막 쇼츠 만들기</button><button class="danger" id="stopBtn" disabled>중지</button></div>
+    <div id="status" class="status">사진을 올린 뒤 대본을 만들고 영상을 생성해보세요.</div>
+    <div class="meter"><div id="bar"></div></div><div id="download" class="download"></div>
+  </div>
+
+  <div class="card">
+    <div class="step">PREVIEW</div><h2>9:16 쇼츠</h2>
+    <div class="phoneWrap"><div class="phone"><canvas id="preview" width="1080" height="1920"></canvas></div></div>
+    <div class="status"><b>V2 무료 구조</b><br>• 서버 없음 / 업로드 없음 / 사용자 브라우저에서 처리<br>• 1080×1920 Canvas 렌더<br>• 사진 자동 줌·패닝<br>• 대본 기반 자동 자막<br>• 브라우저 한국어 TTS<br>• 현재 탭 오디오를 캡처해 TTS를 결과물에 포함<br>• 브라우저가 MP4 녹화를 지원하면 MP4, 아니면 WebM 저장<br><br><b>비용이 생기지 않는 부분</b><br><span class="pill">렌더링</span><span class="pill">사진 모션</span><span class="pill">자막</span><span class="pill">기본 TTS</span><span class="pill">정적 배포</span></div>
+  </div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+let imageObjs=[], raf=0, recorder=null, chunks=[], stopping=false, currentSpeech=null;
+const canvas=$('preview'), ctx=canvas.getContext('2d');
+ctx.imageSmoothingEnabled=true; ctx.imageSmoothingQuality='high';
+
+function splitSubs(text){
+  const cleaned=text.replace(/\s+/g,' ').trim(); if(!cleaned) return ['매물 소개'];
+  const sents=cleaned.split(/(?<=[.!?。])\s*/).filter(Boolean), out=[];
+  for(const s of sents){
+    let t=s.trim();
+    while(t.length>22){let cut=22; const p=Math.max(t.lastIndexOf(' ',22),t.lastIndexOf(',',22)); if(p>10)cut=p; out.push(t.slice(0,cut).trim());t=t.slice(cut).trim();}
+    if(t)out.push(t);
+  } return out;
+}
+function buildScript(){
+  const v=id=>$(id).value.trim(), name=v('name')||'오늘의 추천 매물', deal=v('deal')||'매매', price=v('price')||'가격 상담';
+  const f=v('features').split(',').map(x=>x.trim()).filter(Boolean).slice(0,4), facts=[];
+  let intro=`오늘 소개해드릴 매물은 ${name}입니다.`;
+  if(v('tone')==='빠르고 강하게') intro=`${name}, 핵심 조건만 빠르게 보여드리겠습니다.`;
+  if(v('tone')==='고급스럽게') intro=`오늘은 ${name}의 공간과 조건을 차분하게 살펴보겠습니다.`;
+  if(price) facts.push(`${deal} 기준 ${price}입니다.`); if(v('area')) facts.push(`면적은 ${v('area')}입니다.`);
+  if(v('rooms')||v('baths')) facts.push(`방 ${v('rooms')||'-'}개, 욕실 ${v('baths')||'-'}개 구조입니다.`);
+  if(v('direction')) facts.push(`방향은 ${v('direction')}입니다.`); if(v('movein')) facts.push(`입주는 ${v('movein')} 가능합니다.`);
+  if(f.length) facts.push(`핵심 포인트는 ${f.join(', ')}입니다.`);
+  $('script').value=[intro,...facts,'사진을 보시면서 공간 구성을 확인해보세요. 자세한 조건과 방문 상담은 중개사무소로 문의해주세요.'].join(' ');
+  renderStill();
+}
+
+$('images').addEventListener('change',async e=>{
+  imageObjs=[];$('photos').innerHTML='';
+  for(const [idx,file] of [...e.target.files].entries()){
+    const url=URL.createObjectURL(file), img=new Image(); img.src=url; await img.decode(); imageObjs.push(img);
+    const d=document.createElement('div');d.className='photo';d.innerHTML=`<img src="${url}"><span>${idx+1}</span>`;$('photos').appendChild(d);
+  } renderStill();
+});
+$('genBtn').onclick=buildScript;
+$('ttsBtn').onclick=()=>{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance($('script').value);u.lang='ko-KR';u.rate=parseFloat($('rate').value);speechSynthesis.speak(u)};
+
+function drawCover(img, zoom=1, panX=.5, panY=.5){
+  const cw=canvas.width,ch=canvas.height, ir=img.width/img.height, cr=cw/ch; let sw,sh;
+  if(ir>cr){sh=img.height;sw=sh*cr}else{sw=img.width;sh=sw/cr}
+  sw/=zoom;sh/=zoom; const maxX=img.width-sw,maxY=img.height-sh; const sx=maxX*panX,sy=maxY*panY;
+  ctx.drawImage(img,sx,sy,sw,sh,0,0,cw,ch);
+}
+function wrapText(text,maxWidth,font){ctx.font=font;const words=text.split(' ');let lines=[],line='';for(const w of words){const test=(line+' '+w).trim();if(ctx.measureText(test).width>maxWidth&&line){lines.push(line);line=w}else line=test}if(line)lines.push(line);if(lines.length===1&&text.length>18&&!text.includes(' ')){lines=[];for(let i=0;i<text.length;i+=12)lines.push(text.slice(i,i+12))}return lines.slice(0,2)}
+function drawFrame(t,total){
+  ctx.fillStyle='#111';ctx.fillRect(0,0,canvas.width,canvas.height);
+  if(imageObjs.length){const per=total/imageObjs.length, idx=Math.min(imageObjs.length-1,Math.floor(t/per)), local=(t%per)/per;const img=imageObjs[idx];let zoom=1.03+local*.10,px=.5,py=.5;if(idx%3===1){px=.42+local*.16;zoom=1.08}else if(idx%3===2){py=.42+local*.14;zoom=1.06+local*.05}drawCover(img,zoom,px,py);ctx.fillStyle='rgba(0,0,0,.15)';ctx.fillRect(0,0,canvas.width,canvas.height)}
+  const subs=splitSubs($('script').value), si=Math.min(subs.length-1,Math.floor((t/Math.max(total,.1))*subs.length)), sub=subs[si]||'';
+  const style=$('subtitleStyle').value; let boxY=1430, fs=68;
+  if(style==='strong'){fs=78;ctx.fillStyle='rgba(0,0,0,.72)';ctx.fillRect(70,boxY-55,940,230)}
+  else if(style==='premium'){fs=64;ctx.fillStyle='rgba(10,10,10,.58)';ctx.fillRect(110,boxY-50,860,210)}
+  else {ctx.fillStyle='rgba(0,0,0,.56)';ctx.fillRect(80,boxY-50,920,210)}
+  ctx.textAlign='center';ctx.textBaseline='middle';ctx.lineJoin='round';ctx.font=`800 ${fs}px Arial, sans-serif`;const lines=wrapText(sub,850,ctx.font);lines.forEach((ln,i)=>{const y=boxY+(i-(lines.length-1)/2)*88;ctx.lineWidth=10;ctx.strokeStyle='rgba(0,0,0,.72)';ctx.strokeText(ln,540,y);ctx.fillStyle=style==='premium'?'#fff7df':'#fff';ctx.fillText(ln,540,y)});
+  ctx.fillStyle='rgba(8,11,18,.78)';ctx.fillRect(0,1780,1080,140);ctx.font='700 40px Arial, sans-serif';ctx.fillStyle='white';ctx.fillText(`${$('brand').value}${$('phone').value?'  |  '+$('phone').value:''}`,540,1850);
+}
+function estimateDuration(){const n=$('script').value.replace(/\s/g,'').length,rate=parseFloat($('rate').value);return Math.max(12,Math.min(75,n/(5.2*rate)+2));}
+function renderStill(){drawFrame(0,estimateDuration())}
+['script','brand','phone','subtitleStyle'].forEach(id=>$(id).addEventListener('input',renderStill));
+renderStill();
+
+function bestMime(){const c=['video/mp4;codecs=avc1.42E01E,mp4a.40.2','video/mp4','video/webm;codecs=vp9,opus','video/webm;codecs=vp8,opus','video/webm'];return c.find(x=>MediaRecorder.isTypeSupported(x))||''}
+async function renderVideo(){
+  if(!imageObjs.length){alert('사진을 먼저 올려주세요.');return} if(!$('script').value.trim()){alert('대본을 먼저 만들어주세요.');return}
+  let display;
+  try{display=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true,preferCurrentTab:true,selfBrowserSurface:'include'});}catch(e){$('status').textContent='탭 공유가 취소되었습니다.';return}
+  const audioTracks=display.getAudioTracks(); if(!audioTracks.length){display.getTracks().forEach(t=>t.stop());alert('탭 오디오가 선택되지 않았습니다. Chrome 공유창에서 현재 탭 + 탭 오디오 공유를 체크해주세요.');return}
+  const videoStream=canvas.captureStream(30), combined=new MediaStream([...videoStream.getVideoTracks(),...audioTracks]);
+  const mime=bestMime(); chunks=[];recorder=new MediaRecorder(combined,mime?{mimeType:mime,videoBitsPerSecond:8000000}:undefined);stopping=false;
+  recorder.ondataavailable=e=>{if(e.data.size)chunks.push(e.data)};
+  recorder.onstop=()=>{display.getTracks().forEach(t=>t.stop());videoStream.getTracks().forEach(t=>t.stop());const type=recorder.mimeType||mime||'video/webm', ext=type.includes('mp4')?'mp4':'webm';const blob=new Blob(chunks,{type});const url=URL.createObjectURL(blob);$('download').innerHTML=`<a href="${url}" download="realestate-shorts.${ext}">완성 영상 다운로드 (.${ext})</a>`;$('status').textContent=`완료되었습니다. 브라우저 지원 형식: ${ext.toUpperCase()}`;$('bar').style.width='100%';$('renderBtn').disabled=false;$('stopBtn').disabled=true;};
+  recorder.start(1000);$('renderBtn').disabled=true;$('stopBtn').disabled=false;$('download').innerHTML='';
+  const total=estimateDuration(),start=performance.now(); currentSpeech=new SpeechSynthesisUtterance($('script').value);currentSpeech.lang='ko-KR';currentSpeech.rate=parseFloat($('rate').value);
+  let speechEnded=false; currentSpeech.onend=()=>speechEnded=true;currentSpeech.onerror=()=>speechEnded=true;
+  const tick=()=>{const t=(performance.now()-start)/1000;drawFrame(Math.min(t,total),total);$('bar').style.width=`${Math.min(99,t/total*100)}%`;$('status').textContent=`무료 브라우저 렌더링 중 · ${t.toFixed(1)}초`;if(!stopping && (t<total || !speechEnded)){raf=requestAnimationFrame(tick)}else stopRecording()};
+  speechSynthesis.cancel();setTimeout(()=>speechSynthesis.speak(currentSpeech),350);tick();
+  setTimeout(()=>{if(recorder&&recorder.state==='recording'&&!stopping){stopping=true;setTimeout(stopRecording,500)}},Math.ceil((total+12)*1000));
+}
+function stopRecording(){if(stopping===false)stopping=true;cancelAnimationFrame(raf);speechSynthesis.cancel();if(recorder&&recorder.state==='recording')recorder.stop()}
+$('renderBtn').onclick=renderVideo;$('stopBtn').onclick=stopRecording;
+</script>
+</body></html>
